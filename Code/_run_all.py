@@ -1,16 +1,18 @@
-from _script_generate_graph_dict import generate_graph_dictionary
-from _script_embed_all_no_paral import run_experiment
-from _train_test_pipeline_already_split import run_GNNTE_experiment_split
+from _generate_graph_dict import generate_graph_dictionary
+from _embed_all_no_paral import run_experiment
+from _training_pipeline import run_Armadillo_experiment_split
 from _overlap_of_a_pair_effe_effi_processing import recompute_embeddings_overlaps_overlap_computation_time, repeat_test_emb_already_computed
 from _performance_overlap_computation import predict_overlap_compute_AE, prepare_dataset_perc_num_str_nans
 from _table_stats_computation import compute_tables_stats
 import pandas as pd
 import time
 
-def run_all(operations: list=['build_graph_dict', 'build_embedding_dict', 'efficiency_tests', 'effectiveness_tests'], table_dict: str | dict=None, graph_dict: str=None, embedding_generation_method: str='sha256', model_file: str=None,
+def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_embedding_dict', 'efficiency_tests', 'effectiveness_tests'], table_dict: str | dict=None, graph_dict: str=None, embedding_generation_method: str='sha256', model_file: str=None,
             train_file: str=None, test_file: str=None, valid_file: str=None, num_epochs: int=50, embedding_file: str=None, plot_data_emb_gen: str=None, sloth_output_file: str=None,
             plot_data_efficiency: str=None, loss_type: str='MAE', triple_dataset_without_predictions: str=None, table_stats_file: str=None, plot_data_effectiveness: str=None, dropout: float=0, gnn_type: str='GraphSAGE'):
-    
+    if 'build_table_dict' in operations:
+        pass
+
     if 'build_graph_dict' in operations:
         print('Starting graph construction')
         start = time.time()
@@ -35,7 +37,7 @@ def run_all(operations: list=['build_graph_dict', 'build_embedding_dict', 'effic
         checkpoint = model_file
         log_wandb = True
         initial_embedding_method = embedding_generation_method
-        run_GNNTE_experiment_split(project_name=name, train_file=train_file, test_file=test_file, loss_type=loss_type, valid_file=valid_file, graph_file=graph_dict, 
+        run_Armadillo_experiment_split(project_name=name, train_file=train_file, test_file=test_file, loss_type=loss_type, valid_file=valid_file, graph_file=graph_dict, 
                                     checkpoint=checkpoint, lr=lr, batch_size=batch_size, num_epochs=num_epochs, out_channels=out_channels, n_layers=n_layers, 
                                     dropout=dropout_prob, weight_decay=weight_decay, step_size=step_size, gamma=gamma, gnn_type=GNN_type,
                                     log_wandb=log_wandb, initial_embedding_method=initial_embedding_method
@@ -82,6 +84,7 @@ if __name__ == '__main__':
     # }
     run_all(
         operations=[
+            'build_table_dict',
             #'build_graph_dict',
             #'train_model',
             #'build_embedding_dict',
