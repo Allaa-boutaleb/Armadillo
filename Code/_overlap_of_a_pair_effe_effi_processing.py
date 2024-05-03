@@ -3,7 +3,7 @@ import numpy as np
 from tqdm import tqdm
 import pickle
 import torch.nn.functional as F
-from _script_overlap_computation import *
+from _overlap_computation import *
 import matplotlib.pyplot as plt
 
 def clean_sloth(path: str | pd.DataFrame, outpath: str=None) -> pd.DataFrame:
@@ -11,7 +11,6 @@ def clean_sloth(path: str | pd.DataFrame, outpath: str=None) -> pd.DataFrame:
         df = pd.read_csv(path)
     else:
         df = path
-    #out = df[['r_id', 's_id', 'a%']]
     out = df.drop(df.columns[0], axis=1)
     out = out.fillna(0)
     if outpath:
@@ -62,7 +61,7 @@ def re_evaluate_sloth_out(cleaned_sloth_output: str | pd.DataFrame, embedding_di
     
     return df_out
 
-def compute_overlap_ratio(model: GNNTE, dataloader: DataLoader, device: str) -> tuple:
+def compute_overlap_ratio(model: Armadillo, dataloader: DataLoader, device: str) -> tuple:
     model.eval()
     with torch.no_grad():
         for batch in dataloader:
@@ -193,7 +192,7 @@ def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: s
     print('Table dict loaded')
 
     print('Loading model....')
-    model = GNNTE(model_file=model_file)
+    model = Armadillo(model_file=model_file)
     print('Model loaded')
 
     
@@ -252,16 +251,11 @@ def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: s
         end = time.time()
         exec_times['armadillo_total_time'].append(end-start)
         
-        #try:
         exec_times['armadillo'].append(float(overlap))
-        # except:
-        #      exec_times['armadillo'].append(float(overlap))
     
     new_cols = pd.DataFrame(exec_times)
     new_cols['AE_armadillo'] = abs(sloth_data['a%'] - new_cols['armadillo'])
     out = pd.concat([sloth_data, new_cols], axis=1)
-
-    #out = add_areas_cols_rows(sloth_outputs_file=out, table_dict=table_dict)
 
     if output_file:
         out.to_csv(output_file, index=False)
@@ -299,39 +293,3 @@ def add_new_column_prediction_armadillo(old_data: str | pd.DataFrame, embedding_
     print('Output saved')
     
     return d1
-
-if __name__ == '__main__':
-    #clean_sloth('/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/labelled/old_data/valid_stats.csv','/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/labelled/old_data/valid_stats_cleaned.csv')
-    
-    # re_evaluate_sloth_out(cleaned_sloth_output='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/labelled/old_data/valid_stats_cleaned.csv',
-    #                       embedding_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/embeddings/embeddings_gittables_model_wikidata_450k_GraphSAGE_50ep.pkl',
-    #                       out_path='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/labelled/old_data/valid_stats_cleaned_450k_with_AE.csv'
-    #                       )
-    recompute_embeddings_overlaps_overlap_computation_time(
-        sloth_outputs_file= '/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/evaluation_intermediate/evaluation_test_last.csv',
-        model_file='/home/francesco.pugnaloni/GNNTE/best_model_gittables.pth',
-        table_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/table_dict_796970_good.pkl',
-        output_file='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/evaluation_intermediate/evaluation_test_last_with_sloth_times.csv'
-        )
-
-    # add_areas_cols_rows(sloth_outputs_file='/home/francesco.pugnaloni/GNNTE/test_data/t_exec/end_2_end_overlap_comparison/t_execs_compared_seconds.csv',
-    #                     table_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/table_dict_796970_good.pkl',
-    #                     output_file='/home/francesco.pugnaloni/GNNTE/test_data/t_exec/end_2_end_overlap_comparison/t_execs_compared_seconds_with_areas.csv'
-    #                     )
-
-    repeat_test_emb_already_computed(old_file='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/evaluation_intermediate/evaluation_test_last_with_sloth_times.csv',
-                                     embeddings_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/embeddings_best_mae_gittables.pkl',
-                                     out_path='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/evaluation_test_last_with_sloth_times_embeddings_retested.csv')
-    #add_new_column_prediction_armadillo(old_data='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/baseline_performances/test_set_similarities_gittables_with_armadillo_predictions.csv',
-    #                                   embedding_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/embeddings/embeddings_made_with_arm_trained_on_wikidata.pkl',
-    #                                   out_path='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/gittables_effectiveness_last_with_wiki.csv',
-    #                                  label='wikitables')
-    
-    #add_new_column_prediction_armadillo(old_data='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/test.csv',
-    #                                    embedding_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/embeddings/embeddings_made_with_arm_trained_on_wikitables.pkl',
-    #                                    out_path='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/effectiveness_evaluation.csv',
-    #                                    label='wikitables')
-    #add_new_column_prediction_armadillo(old_data='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/effectiveness_evaluation.csv',
-    #                                    embedding_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/embeddings/embeddings_made_with_arm_trained_on_gittables.pkl',
-    #                                    out_path='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/effectiveness_evaluation.csv',
-    #                                    label='gittables')

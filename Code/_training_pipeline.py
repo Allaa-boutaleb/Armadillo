@@ -2,8 +2,8 @@ from armadillo import *
 
 def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_file: str, model_file: str, hidden_channels: int, num_layers: int,
                         batch_size: int=64, lr: float=0.01, dropout: float=0, initial_embedding_method: str='fasttext',
-                        num_epochs: int=100, weight_decay: float=0.0001, act: str='relu', log_wandb: bool=False,
-                        step_size: int=15, gamma: float=0.1, gnn_type: str='GIN', compute_bins_stats: bool=False, relu: bool=False, loss_type: str='MSE') -> Armadillo:
+                        num_epochs: int=100, weight_decay: float=0.0001, act: str='relu',
+                        step_size: int=15, gamma: float=0.1, gnn_type: str='GIN', compute_bins_stats: bool=False, relu: bool=False, loss_type: str='MAE') -> Armadillo:
     """This function performs the full train-validate-test pipeline
 
     Args:
@@ -54,7 +54,7 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
     print('Training starts')
 
     model = train(model, train_dataset, valid_dataset, batch_size, lr, num_epochs, device, model_file, 
-                  weight_decay=weight_decay, log_wandb=log_wandb, step_size=step_size, gamma=gamma, loss_type=loss_type)
+                  weight_decay=weight_decay, step_size=step_size, gamma=gamma, loss_type=loss_type)
     end = time.time()
     t_train=end-start
     print(f'T_train: {t_train}s')
@@ -74,11 +74,6 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
     if compute_bins_stats:
         execution_insights_bins = test_bins(model, test_dataset, batch_size)
         execution_insights['bins'] = execution_insights_bins
-    if log_wandb:
-        wandb.run.summary["T_train"] = t_train 
-        wandb.run.summary["T_test"] = t_test
-        wandb.run.summary["MSE"] = mse
-        wandb.run.summary["insights"] = execution_insights
 
     execution_insights['test']['model'] = model
 
@@ -105,87 +100,15 @@ def run_Armadillo_experiment_split(project_name: str, train_file: str, test_file
         relu (bool, optional): if set to Tre a relu layer will be added at the end of the network, it will prevent negative cosine similarities between the embeddings
 
     """
-    #name = f"SPLIT_128_{gnn_type}_{batch_size}_{lr}_{num_epochs}_{out_channels}_{n_layers}_{dropout}_{weight_decay}_{step_size}_{gamma}"
     name = checkpoint
     if relu:
         name += "_relu"
     else:
         name += "_no_relu"
-    if log_wandb:
-        # start a new wandb run to track this script
-        wandb.init(
-            # set the wandb project where this run will be logged
-            project=project_name,
-            name=name,
-            # track hyperparameters and run metadata
-            config={
-                "gnn_type":gnn_type,
-                #"dataset": dataset,
-                "batch_size": batch_size,
-                "learning_rate": lr,
-                "num_epochs": num_epochs,
-                "out_channels": out_channels,
-                "n_layers": n_layers,
-                "dropout": dropout,
-                "step_size": step_size,
-                "gamma": gamma,
-                "relu" : relu
-            }
-        )
     #checkpoint = dataset+f"/{name}.pth"
     print(f'Starting training with {num_epochs} epochs')
     training_pipeline(train_file=train_file, test_file=test_file, valid_file=valid_file, graph_file=graph_file, model_file=checkpoint, hidden_channels=out_channels, num_layers=n_layers, 
-                        num_epochs=num_epochs, batch_size=batch_size, lr=lr, dropout=dropout, log_wandb=log_wandb,
+                        num_epochs=num_epochs, batch_size=batch_size, lr=lr, dropout=dropout, 
                         weight_decay=weight_decay, step_size=step_size, gamma=gamma, gnn_type=gnn_type, compute_bins_stats=True,
                         relu=relu, initial_embedding_method=initial_embedding_method, loss_type=loss_type)
         
-    wandb.finish()
-
-if __name__ == "__main__":
-    name = 'Armadillo'
-    # train_file = '/home/francesco.pugnaloni/GNNTE/Datasets/CoreEvaluationDatasets/1M_wikitables_disjointed/819716_13583_12918/train.csv'
-    # test_file = '/home/francesco.pugnaloni/GNNTE/Datasets/CoreEvaluationDatasets/1M_wikitables_disjointed/819716_13583_12918/test.csv'
-    # valid_file = '/home/francesco.pugnaloni/GNNTE/Datasets/CoreEvaluationDatasets/1M_wikitables_disjointed/819716_13583_12918/valid.csv'
-    #train_file = '/home/francesco.pugnaloni/GNNTE/Datasets/wikipedia_datasets/1000_samples/train.csv'
-    #test_file = '/home/francesco.pugnaloni/GNNTE/Datasets/wikipedia_datasets/1000_samples/test.csv'
-    #valid_file = '/home/francesco.pugnaloni/GNNTE/Datasets/wikipedia_datasets/1000_samples/valid.csv'
-    # train_file = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/train_test_val_datasets/train.csv'
-    # test_file = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/train_test_val_datasets/test.csv'
-    # valid_file = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/train_test_val_datasets/valid.csv'
-
-    train_file = '/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/balanced_datasets/train.csv'
-    test_file = '/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/balanced_datasets/test.csv'
-    valid_file = '/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/balanced_datasets/valid.csv'
-
-    graph_file = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/graphs_sha256_null_not_0_no_merge_nodes.pkl'
-    #graph_file = '/home/francesco.pugnaloni/GNNTE/Datasets/wikipedia_datasets/1000_samples/graphs.pkl'
-
-    
-    #checkpoint = '/home/francesco.pugnaloni/GNNTE/tmp/model_test_1k.pth'
-    lr = 0.001
-    batch_size = 128
-    num_epochs = 50
-    #num_epochs = 10
-    out_channels = 300
-    n_layers = 3
-    dropout_prob = 0
-    weight_decay = 0.0001
-    step_size = 15
-    gamma = 0.1
-    GNN_type = 'GraphSAGE'
-    checkpoint = f'/home/francesco.pugnaloni/GNNTE/models/gittables/wikidata_19-03-24_{GNN_type}_50_ep_max_1000_tokens_init_emb_sha256_3_layers_null_not_0_no_merge_nodes.pth'
-    log_wandb = True
-    initial_embedding_method = 'sha256'
-    #dataset = "/home/francesco.pugnaloni/GNNTE/Datasets/wikipedia_datasets/1000_samples"
-
-    #graphs_path = dataset+"/graphs.pkl"
-    #checkpoint = dataset+f"/{name}.pth"
-    
-
-    run_Armadillo_experiment_split(project_name=name, train_file=train_file, test_file=test_file, valid_file=valid_file, graph_file=graph_file, 
-                               checkpoint=checkpoint, lr=lr, batch_size=batch_size, num_epochs=num_epochs, out_channels=out_channels, n_layers=n_layers, 
-                               dropout=dropout_prob, weight_decay=weight_decay, step_size=step_size, gamma=gamma, gnn_type=GNN_type,
-                               log_wandb=log_wandb, initial_embedding_method=initial_embedding_method
-                               )
-
-    print('Finish')

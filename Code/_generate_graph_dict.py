@@ -69,19 +69,3 @@ def generate_graph_dictionary(table_dict_path: str | dict, out_path: str, embedd
     print(f'Graph_dict generated in: {(end-start_interm)}s')
     print(f'Total t_exec: {(end-start)}s')
     return out
-
-if __name__ == "__main__":
-
-    # n_params = len(sys.argv) - 1
-    # expected_params = 3
-    # if n_params != expected_params:
-    #     raise ValueError(f'Wrong number of parameters, you provided {n_params} but {expected_params} are expected. \nUsage is: {sys.argv[0]} table_dict_path out_directory_path embedding_generation_method')
-    # table_dict_path = sys.argv[1]
-    # out_directory_path = sys.argv[2]
-    # embedding_generation_method = sys.argv[3]
-
-    table_dict_path = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/full_table_dict_with_id.pkl'
-    out_directory_path = '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/graphs_sha256_null_not_0_no_merge_nodes.pkl'
-    embedding_generation_method = 'sha256'
-
-    graph_dict = generate_graph_dictionary(table_dict_path, out_directory_path, embedding_generation_method)

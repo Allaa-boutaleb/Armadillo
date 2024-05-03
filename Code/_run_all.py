@@ -24,7 +24,7 @@ def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_emb
     if 'train_model' in operations:
         print('Model training starting')
         start = time.time()
-        name = 'GNNTE'
+        name = 'Armadillo'
         lr = 0.001
         batch_size = 64
         out_channels = 300

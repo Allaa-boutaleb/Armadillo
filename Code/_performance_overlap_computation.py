@@ -24,7 +24,6 @@ def plot_box_group(df: pd.DataFrame | str, label_list: list, label_y: str='AE', 
     except:
         ax = df[label_list].boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))    
     
-    # Add mean values as numbers above the box plots
     means = df[label_list].mean()
     for i, mean in enumerate(means):
         ax.text(i + 1, mean, f'{mean:.3f}', ha='center', va='bottom', color='green')
@@ -347,10 +346,8 @@ def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot
 
     x = t_execs_sloth
 
-    # Definisci la figura e gli assi per lo scatterplot
     fig, (ax_scatter, ax_kde) = plt.subplots(2, 1, figsize=(8, 8), 
                                             gridspec_kw={'height_ratios': [3, 1]})
-    # Disegna lo scatterplot
     ax_scatter.scatter(x, x, s=3, c='black', alpha=0.7, edgecolors='black', label='Sloth')
     ax_scatter.scatter(x, t_exec_arm_total, s=3, c='blue', alpha=0.7, edgecolors='blue', label='New Tables')
     ax_scatter.scatter(x, t_exec_new_emb_already_comp, s=3, c='red', alpha=0.7, edgecolors='red', label='Embeddings Already Computed')
@@ -362,7 +359,6 @@ def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot
         fill=True, common_norm=False,
         alpha=.5, linewidth=0, color='grey'
     )
-    # Imposta i titoli e le etichette degli assi per lo scatterplot
     ax_scatter.set_ylabel('Total Overlap Computation Time (s)',fontsize=font_size)
     
     if logx:
@@ -373,19 +369,17 @@ def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot
     ax_kde.set_yscale('log')
     ax_scatter.legend()
 
-    # Imposta le etichette degli assi per il KDE plot
     ax_kde.set_xlabel('Sloth t_exec (s)',fontsize=font_size)
     ax_kde.set_ylabel('Number Of Samples',fontsize=font_size)
     
-    ax_scatter.tick_params(axis='both', which='major', labelsize=font_size)  # Set font size for major ticks
-    ax_kde.tick_params(axis='both', which='major', labelsize=font_size)  # Set font size for major ticks
+    ax_scatter.tick_params(axis='both', which='major', labelsize=font_size)  
+    ax_kde.tick_params(axis='both', which='major', labelsize=font_size)  
 
-    ax_scatter.tick_params(axis='both', which='both', labelsize=font_size)  # Set font size for tick labels
-    ax_kde.tick_params(axis='both', which='both', labelsize=font_size)  # Set font size for tick labels
+    ax_scatter.tick_params(axis='both', which='both', labelsize=font_size)
+    ax_kde.tick_params(axis='both', which='both', labelsize=font_size)  
     
     ax_scatter.legend(fontsize=font_size)
 
-    # Visualizza il grafico
     plt.tight_layout()
     if isinstance(output_pdf, str):
         plt.savefig(output_pdf, format="pdf", bbox_inches="tight")
@@ -407,11 +401,9 @@ def visualize_area_scatter_plot(stats_file: str | pd.DataFrame, label_x: str='to
     x = areas
     y = t_execs
 
-    # Definisci la figura e gli assi per lo scatterplot
     fig, (ax_scatter, ax_kde) = plt.subplots(2, 1, figsize=(8, 8), 
                                             gridspec_kw={'height_ratios': [3, 1]})
 
-    # Disegna lo scatterplot
     ax_scatter.scatter(x, y, s=3, c='orange', alpha=0.7, edgecolors='black')
 
     if limit_y:
@@ -434,7 +426,6 @@ def visualize_area_scatter_plot(stats_file: str | pd.DataFrame, label_x: str='to
         fill=True, common_norm=False,
         alpha=.5, linewidth=0, color='grey'
     )
-    # Imposta i titoli e le etichette degli assi per lo scatterplot
 
     ax_scatter.set_ylabel(label_y)
     if label_x == 'tot_area':
@@ -451,30 +442,9 @@ def visualize_area_scatter_plot(stats_file: str | pd.DataFrame, label_x: str='to
         ax_scatter.set_yscale('log')
     ax_kde.set_yscale('log')
     
-    # Imposta le etichette degli assi per il KDE plot
-    #ax_kde.set_xlabel(label_x)
     ax_kde.set_ylabel('Number Of Samples')
 
-    # Visualizza il grafico
     plt.tight_layout()
     if isinstance(out_pdf, str):
         plt.savefig(out_pdf, format="pdf", bbox_inches="tight")
     plt.show()
-
-
-if __name__ == '__main__':
-    # predict_overlap_compute_AE(unlabelled='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/train_test_val_datasets/test.csv', 
-    #                            embedding_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/embeddings/emb_wiki_20_03_sha256.pkl', 
-    #                            out_path='/home/francesco.pugnaloni/GNNTE/test_data/performance/1_x_bins_y_MAE/wikitables/455252_52350_52530_labelled_sha256.csv')
-    add_table_stats(table_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/table_dict_796970_good.pkl', 
-                    dataset='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/baseline_performances/test_set_similarities_gittables_with_armadillo_predictions.csv', 
-                    outpath='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/baseline_performances/test_set_similarities_gittables_with_armadillo_predictions.csv')
-    #show_mae_per_bin('/home/francesco.pugnaloni/GNNTE/test_data/performance/1_x_bins_y_MAE/wikitables/455252_52350_52530_labelled.csv')
-
-    # df = prepare_dataset_perc_num_str_nans(
-    #     '/home/francesco.pugnaloni/GNNTE/test_data/performance/1_x_bins_y_MAE/wikitables/455252_52350_52530_labelled.csv',
-    #     '/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/stats/stats.pkl',
-    #     '/home/francesco.pugnaloni/GNNTE/test_data/performance/samples_enriched_for_plotting.csv'
-    #     )
-    
-    # show_mae_per_bin('/home/francesco.pugnaloni/GNNTE/test_data/performance/1_x_bins_y_MAE/wikitables/455252_52350_52530_labelled.csv', box=True)
