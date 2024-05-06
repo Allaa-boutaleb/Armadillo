@@ -400,13 +400,21 @@ def compute_metrics(y_pred: torch.Tensor, y_true: torch.Tensor) -> dict:
     Returns:
         dict: contains the following metrics: mse, mae, variance, min_ae, abs_diff_tensor 
     """
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    mse = F.mse_loss(y_pred, y_true.to(device))
-    abs_diff_tensor = torch.abs(y_pred - y_true.to(device))
-    mae = torch.mean(abs_diff_tensor)
-    variance = torch.var(abs_diff_tensor)
-    min_ae = torch.min(abs_diff_tensor)
-    max_ae = torch.max(abs_diff_tensor)
+    try:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        mse = F.mse_loss(y_pred, y_true.to(device))
+        abs_diff_tensor = torch.abs(y_pred - y_true.to(device))
+        mae = torch.mean(abs_diff_tensor)
+        variance = torch.var(abs_diff_tensor)
+        min_ae = torch.min(abs_diff_tensor)
+        max_ae = torch.max(abs_diff_tensor)
+    except:
+        mse = None
+        abs_diff_tensor = None
+        mae = None
+        variance = None
+        min_ae = None
+        max_ae = None
     return {'mse':mse, 'mae':mae, 'variance':variance, 'min_ae':min_ae, 'max_ae':max_ae, 'abs_diff_tensor':abs_diff_tensor}
 
 def model_inference(model: Armadillo, data_loader: DataLoader, device: str) -> set:

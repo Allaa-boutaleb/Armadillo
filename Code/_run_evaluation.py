@@ -5,13 +5,13 @@ from _overlap_of_a_pair_effe_effi_processing import recompute_embeddings_overlap
 from _performance_overlap_computation import predict_overlap_compute_AE
 from _table_stats_computation import compute_tables_stats
 import pandas as pd
+import pickle
 import time
 
-def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_embedding_dict', 'efficiency_tests', 'effectiveness_tests'], table_dict: str | dict=None, graph_dict: str=None, embedding_generation_method: str='sha256', model_file: str=None,
+def run_all(operations: list=['build_graph_dict', 'build_embedding_dict', 'efficiency_tests', 'effectiveness_tests'], table_dict: str | dict=None, graph_dict: str=None, embedding_generation_method: str='sha256', model_file: str=None,
             train_file: str=None, test_file: str=None, valid_file: str=None, num_epochs: int=50, embedding_file: str=None, plot_data_emb_gen: str=None, sloth_output_file: str=None,
+            new_model_trained: str= None,
             plot_data_efficiency: str=None, loss_type: str='MAE', triple_dataset_without_predictions: str=None, table_stats_file: str=None, plot_data_effectiveness: str=None, dropout: float=0, gnn_type: str='GraphSAGE'):
-    if 'build_table_dict' in operations:
-        pass
 
     if 'build_graph_dict' in operations:
         print('Starting graph construction')
@@ -20,7 +20,6 @@ def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_emb
         end = time.time()
         print(f'Graph built in {end-start}s')
 
-    
     if 'train_model' in operations:
         print('Model training starting')
         start = time.time()
@@ -34,7 +33,7 @@ def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_emb
         step_size = 15
         gamma = 0.1
         GNN_type = gnn_type
-        checkpoint = model_file
+        checkpoint = new_model_trained
         log_wandb = True
         initial_embedding_method = embedding_generation_method
         run_Armadillo_experiment_split(project_name=name, train_file=train_file, test_file=test_file, loss_type=loss_type, valid_file=valid_file, graph_file=graph_dict, 
@@ -74,49 +73,53 @@ def run_all(operations: list=['build_table_dict', 'build_graph_dict', 'build_emb
         if tdnp.shape[1] == 4:
             tdnp = tdnp.drop(tdnp.columns[0], axis=1)
             tdnp = tdnp.fillna(0)
-        partial_labelled_dataset = predict_overlap_compute_AE(unlabelled=tdnp, embedding_dict=embedding_file, out_path=plot_data_effectiveness)
-        #prepare_dataset_perc_num_str_nans(labelled_dataset=partial_labelled_dataset, stats_dict=table_stats_file, out_path=plot_data_effectiveness)
+        predict_overlap_compute_AE(unlabelled=tdnp, embedding_dict=embedding_file, out_path=plot_data_effectiveness)
+    
+    if 'generate_charts' in operations:
+        print('Charts generation starting')
+        
+    
+    print('All operation executed')
+
 
 if __name__ == '__main__':
-    # td = {
-    #     'a':pd.DataFrame({'a':[1,2,3,4], 'b':['gatto','cane', 'iena','pollo']}),
-    #     'b':pd.DataFrame({'nutria':[7,8,9], 'armadillo':[1,2,3]})
-    # }
+    td = {
+        'a':pd.DataFrame({'a':[1,2,3,4], 'b':['gatto','cane', 'iena','pollo']}),
+        'b':pd.DataFrame({'nutria':[7,8,9], 'armadillo':[1,2,3]})
+    }
+    with open('/home/francesco.pugnaloni/tmp/tables_test.pkl', 'wb') as f:
+        pickle.dump(td,f)
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/train.csv', index=False)
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/test.csv', index=False)
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/valid.csv', index=False)
+
+    root = '/home/francesco.pugnaloni/tmp/'
+
     run_all(
         operations=[
             'build_table_dict',
-            #'build_graph_dict',
-            #'train_model',
-            #'build_embedding_dict',
-            'efficiency_tests'
-            #'compute_tables_stats',
-            #'effectiveness_tests'
+            'build_graph_dict',
+            'train_model',
+            'build_embedding_dict',
+            'efficiency_tests',
+            'compute_tables_stats',
+            'effectiveness_tests'
         ],
         loss_type='MAE',
-        #table_dict='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/table_dict_796970_good.pkl',
-        table_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/table_dict.pkl',
-        graph_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/graph_dict.pkl',
-        #graph_dict='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/1M_wikitables_disjointed/graphs_sha256_null_not_0_no_merge_nodes.pkl',
+        new_model_trained=root+'/model.pth',
+        table_dict=root+'/tables_test.pkl',
+        graph_dict=root+'/graph_dict.pkl',
         embedding_generation_method='sha256',
-        #model_file='/home/francesco.pugnaloni/GNNTE/model_no_perfect_matches_gittables.pth',
-        model_file='/home/francesco.pugnaloni/GNNTE/model_wikitables.pth',
-        #model_file='/home/francesco.pugnaloni/GNNTE/models/gittables/gittables_no_0_init_sha256_no_merge_nodes_3_layers_dropout_0_batch_64_GraphSAGE_MAE_100_epochs.pth',
-        train_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/train.csv',
-        test_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/test.csv',
-        valid_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/valid.csv',
-        #embedding_file='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/embeddings/emb_64_batch_size_epoch_gittables_model_MAE.pkl',
-        #embedding_file='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/embeddings/embeddings_best_mae_gittables.pkl',
-        embedding_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/embeddings/embeddings.pkl',
-        plot_data_emb_gen=None,
-        #plot_data_effectiveness='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/baseline_performances/test_set_similarities_gittables_with_armadillo_predictions_batch_size_128.csv',
-        plot_data_effectiveness='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/effectiveness/effectiveness.csv',
-        plot_data_efficiency='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/efficiency/efficiency.csv',
-        sloth_output_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/test.csv',
-        #triple_dataset_without_predictions='/home/francesco.pugnaloni/GNNTE/Datasets/1_Gittables/baseline_performances/baseline.csv',
-        triple_dataset_without_predictions='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/test.csv',
-
-        table_stats_file='/home/francesco.pugnaloni/GNNTE/Datasets/2_WikiTables/wikitables_stats.csv',
-        dropout=0,
-        gnn_type='GraphSAGE',
+        model_file=root+'/model.pth',
+        train_file=root+'/train.csv',
+        test_file=root+'/test.csv',
+        valid_file=root+'/valid.csv',
+        embedding_file=root+'/embeddings.pkl',
+        plot_data_emb_gen=root+'/emb_gen_plot_data.csv',
+        plot_data_effectiveness=root+'/effectiveness.csv',
+        plot_data_efficiency=root+'/efficiency.csv',
+        sloth_output_file=root+'/test.csv',
+        triple_dataset_without_predictions=root+'/test.csv',
+        table_stats_file=root+'/stats.csv',
         num_epochs=100
     )

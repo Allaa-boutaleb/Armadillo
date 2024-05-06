@@ -59,6 +59,5 @@ def compute_tables_stats(table_dict: dict | str, outpath: str) -> None:
         new_cols['n_bools'].append(n_bools)
     
     out = pd.DataFrame(new_cols)
-    out.to_csv(outpath, index=False)
-    print(out.describe())
+    out.describe().to_csv(outpath, index=False)
 

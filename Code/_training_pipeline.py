@@ -79,7 +79,7 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
 
     return execution_insights
 
-def run_Armadillo_experiment_split(project_name: str, train_file: str, test_file: str, valid_file: str, graph_file: str, checkpoint: str, lr: float, batch_size: int,
+def run_Armadillo_experiment_split(train_file: str, test_file: str, valid_file: str, graph_file: str, checkpoint: str, lr: float, batch_size: int,
                          num_epochs: int, out_channels: int, n_layers: int, dropout: float, weight_decay: float, step_size: int, gamma: float, 
                          gnn_type: str, initial_embedding_method: str='fasttext', log_wandb=False, relu: bool=False, loss_type: str='MSE') -> None:
     """Utility function to run experiments that will be logged in wandb
