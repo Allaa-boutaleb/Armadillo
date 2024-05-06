@@ -2,6 +2,15 @@ from Code._training_pipeline import run_Armadillo_experiment_split
 import time
 
 def retrain_model(model_out_path: str, train_file: str, test_file: str, valid_file: str, graph_dict: str) -> None:
+    """Train a new Armadillo model from scratch
+
+    Args:
+        model_out_path (str): path where to save a checpoint containing the weights of the model
+        train_file (str): path to the csv file containing the training triples
+        test_file (str): path to the csv file containing the testing triples
+        valid_file (str): path to the csv file containing the validation triples
+        graph_dict (str): path to the dictionary containing the preconstructed table graphs
+    """
     print('Model training starting')
     start = time.time()
     loss_type = 'MAE'
@@ -30,5 +39,5 @@ if __name__ == '__main__':
         Input: root of wikilast or gittables
         Output: a model.pth file containing the weights of new trained model
     """
-    root = ''
+    root = '/home/francesco.pugnaloni/tmp/wikilast_root'
     retrain_model(model_out_path=root+'/model.pth', train_file=root+'/train.csv', test_file=root+'/test.csv', valid_file=root+'/valid.csv', graph_dict=root+'/graph_dict.pkl')

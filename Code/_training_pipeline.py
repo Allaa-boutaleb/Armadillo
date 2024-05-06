@@ -1,4 +1,4 @@
-from armadillo import *
+from .armadillo import *
 
 def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_file: str, model_file: str, hidden_channels: int, num_layers: int,
                         batch_size: int=64, lr: float=0.01, dropout: float=0, initial_embedding_method: str='fasttext',

@@ -28,10 +28,10 @@ if __name__ == '__main__':
                 - table_dict.pkl
                 - graph_dict.pkl
     """
-    root_gittables = ''
-    root_wikilast = ''
-    gittables_csv_directory = ''
-    wikilast_csv_directory = ''
+    root_gittables = '/home/francesco.pugnaloni/tmp/gittables_root'
+    root_wikilast = '/home/francesco.pugnaloni/tmp/wikilast_root'
+    gittables_csv_directory = '/home/francesco.pugnaloni/tmp/gittables'
+    wikilast_csv_directory = '/home/francesco.pugnaloni/tmp/wikilast'
     
     train_gittables = pd.read_csv(root_gittables+'/train.csv')
     test_gittables = pd.read_csv(root_gittables+'/test.csv')

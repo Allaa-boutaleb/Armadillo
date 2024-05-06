@@ -1,7 +1,7 @@
 import pickle
 import os
 import pandas as pd
-import tqdm
+from tqdm import tqdm
 
 def list_files(directory) -> list:
     """given the path of a directory return the list of its files
@@ -33,7 +33,7 @@ def generate_table_dict(csv_folder_path: str, outpath: str=None, table_set: set=
     filenames = list_files(csv_folder_path)
     log = []
     table_dict = {}
-    for i in tqdm.tqdm(range(len(filenames))):
+    for i in tqdm(range(len(filenames))):
         t = None
         path = csv_folder_path + '/' + filenames[i]
         try:

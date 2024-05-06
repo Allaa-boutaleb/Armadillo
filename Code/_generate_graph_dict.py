@@ -1,5 +1,5 @@
-from graph import *
-import tqdm
+from .graph import *
+from tqdm import tqdm
 import sys
 import time
 
@@ -51,7 +51,7 @@ def generate_graph_dictionary(table_dict_path: str | dict, out_path: str, embedd
 
     start_interm = time.time()
     print('Graphs generation starts.....')
-    for k in tqdm.tqdm(table_dict.keys()):
+    for k in tqdm(table_dict.keys()):
         try:
             if embedding_generation_method == 'sha256':
                 out[k] = Graph(table_dict[k], k, embedding_buffer_type=embedding_generation_method, merge_nodes_same_value=False)

@@ -3,7 +3,7 @@ from tqdm import tqdm
 from torch_geometric.nn.models import GIN, GAT, GraphSAGE
 import pickle
 import pandas as pd
-from graph import *
+from .graph import *
 from torch import nn
 from sklearn.model_selection import train_test_split
 from typing import Optional
@@ -16,7 +16,7 @@ import time
 import torch.optim.lr_scheduler as lr_scheduler
 import wandb
 import warnings
-from my_constants import *
+from .my_constants import *
 from torch_geometric.nn import global_mean_pool
 
 def set_seed() -> None:
