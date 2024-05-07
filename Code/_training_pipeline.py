@@ -1,6 +1,6 @@
 from .armadillo import *
 
-def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_file: str, model_file: str, hidden_channels: int, num_layers: int,
+def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_file: str | dict, model_file: str, hidden_channels: int, num_layers: int,
                         batch_size: int=64, lr: float=0.01, dropout: float=0, initial_embedding_method: str='fasttext',
                         num_epochs: int=100, weight_decay: float=0.0001, act: str='relu',
                         step_size: int=15, gamma: float=0.1, gnn_type: str='GIN', compute_bins_stats: bool=False, relu: bool=False, loss_type: str='MAE') -> Armadillo:
@@ -38,9 +38,11 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
     train_triples = pd.read_csv(train_file)[['r_id','s_id','a%']]
     test_triples = pd.read_csv(test_file)[['r_id','s_id','a%']]
     valid_triples = pd.read_csv(valid_file)[['r_id','s_id','a%']]
-
-    with open(graph_file, 'rb') as f:
-        graphs = pickle.load(f)
+    if isinstance(graph_file, str):
+        with open(graph_file, 'rb') as f:
+            graphs = pickle.load(f)
+    else:
+        graphs = graph_file
 
     train_dataset = GraphTriplesDataset(train_triples, graphs)
     test_dataset = GraphTriplesDataset(test_triples, graphs)
@@ -79,7 +81,7 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
 
     return execution_insights
 
-def run_Armadillo_experiment_split(train_file: str, test_file: str, valid_file: str, graph_file: str, checkpoint: str, lr: float, batch_size: int,
+def run_Armadillo_experiment_split(train_file: str, test_file: str, valid_file: str, graph_file: str | dict, checkpoint: str, lr: float, batch_size: int,
                          num_epochs: int, out_channels: int, n_layers: int, dropout: float, weight_decay: float, step_size: int, gamma: float, 
                          gnn_type: str, initial_embedding_method: str='fasttext', log_wandb=False, relu: bool=False, loss_type: str='MSE') -> None:
     """Utility function to run experiments that will be logged in wandb

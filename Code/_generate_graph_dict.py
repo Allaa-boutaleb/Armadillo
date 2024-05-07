@@ -3,7 +3,7 @@ from tqdm import tqdm
 import sys
 import time
 
-def generate_graph_dictionary(table_dict_path: str | dict, out_path: str, embedding_generation_method: str='sha256', save_graph_dict: bool=True) -> dict:
+def generate_graph_dictionary(table_dict_path: str | dict, out_path: str=None, embedding_generation_method: str='sha256', save_graph_dict: bool=True) -> dict:
     """Generate a graph dictionary from a table dictionary
 
     Args:
@@ -60,7 +60,7 @@ def generate_graph_dictionary(table_dict_path: str | dict, out_path: str, embedd
         except:
             out[k] = None
     print('Graph generation ends')
-    if save_graph_dict:
+    if save_graph_dict and (isinstance(out_path, str)):
         print('Saving output')
         with open(out_path, 'wb') as f:
             pickle.dump(out, f)   

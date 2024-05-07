@@ -1,7 +1,8 @@
 from Code._training_pipeline import run_Armadillo_experiment_split
+from Code._generate_graph_dict import *
 import time
 
-def retrain_model(model_out_path: str, train_file: str, test_file: str, valid_file: str, graph_dict: str) -> None:
+def retrain_model(model_out_path: str, train_file: str, test_file: str, valid_file: str, graph_dict: str | dict) -> None:
     """Train a new Armadillo model from scratch
 
     Args:
@@ -39,5 +40,9 @@ if __name__ == '__main__':
         Input: root of wikilast or gittables
         Output: a model.pth file containing the weights of new trained model
     """
-    root = '/home/francesco.pugnaloni/tmp/wikilast_root'
-    retrain_model(model_out_path=root+'/model.pth', train_file=root+'/train.csv', test_file=root+'/test.csv', valid_file=root+'/valid.csv', graph_dict=root+'/graph_dict.pkl')
+    root_dataset = '/home/francesco.pugnaloni/tmp/wikilast_root'
+    print('Building graph_dict')
+    graph_dict = generate_graph_dictionary(table_dict_path=root_dataset+'/table_dict.pkl')
+    
+    print('Training Starting')
+    retrain_model(model_out_path=root_dataset+'/model.pth', train_file=root_dataset+'/train.csv', test_file=root_dataset+'/test.csv', valid_file=root_dataset+'/valid.csv', graph_dict=graph_dict)

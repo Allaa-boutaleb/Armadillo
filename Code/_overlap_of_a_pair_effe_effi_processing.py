@@ -172,7 +172,7 @@ def repeat_test_emb_already_computed(old_file: str | pd.DataFrame, embeddings_di
 
 
 
-def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: str, model_file: str, table_dict: str, output_file: str=None) -> pd.DataFrame:
+def recompute_embeddings_overlaps_overlap_computation_time(unlabeled_dataset: str, model_file: str, table_dict: str, output_file: str=None) -> pd.DataFrame:
     """_summary_
 
     Args:
@@ -184,7 +184,7 @@ def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: s
     Returns:
         pd.DataFrame: an erchied dataframe with armadillo execution times
     """
-    sloth_data = pd.read_csv(sloth_outputs_file)
+    sloth_data = pd.read_csv(unlabeled_dataset)
     
     print('Loading table dict....')
     with open(table_dict, 'rb') as f:
@@ -217,7 +217,6 @@ def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: s
         'embeddings_generation_time':[],
         'cos_sim_time_armadillo':[],
         'armadillo_total_time':[],
-        'armadillo':[]        
     }
 
     for r in tqdm(range(sloth_data.shape[0])):
@@ -250,11 +249,8 @@ def recompute_embeddings_overlaps_overlap_computation_time(sloth_outputs_file: s
 
         end = time.time()
         exec_times['armadillo_total_time'].append(end-start)
-        
-        exec_times['armadillo'].append(float(overlap))
     
     new_cols = pd.DataFrame(exec_times)
-    new_cols['AE_armadillo'] = abs(sloth_data['a%'] - new_cols['armadillo'])
     out = pd.concat([sloth_data, new_cols], axis=1)
 
     if output_file:
