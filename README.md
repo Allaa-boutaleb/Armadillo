@@ -1,5 +1,5 @@
 # Armadillo
-This repository contains the artifacts and source code for MaGRiTTE: a project to Machine Generate Representation of Tabular files with Transformer Encoders.
+This repository contains the artifacts and source code for Armadillo, an approach based on graph neural networks that learns table embeddings whose cosine similarity approximates the overlap ratio between tables.
 
 To reproduce the results of the paper, please follow the instructions in the following sections.
 
