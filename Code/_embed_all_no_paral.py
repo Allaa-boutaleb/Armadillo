@@ -1,4 +1,4 @@
-from _overlap_computation import *
+from ._overlap_computation import *
 import tqdm
 import matplotlib.pyplot as plt
 

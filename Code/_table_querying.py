@@ -288,7 +288,7 @@ def compute_ndcg_at_k(table_querying_arm_sloth: str | pd.DataFrame, query_set: s
             curr_subset = table_querying_arm_sloth[table_querying_arm_sloth['r_id']==t]
             out['armadillo'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['armadillo']]).reshape(1,-1), k=k))
             out['jsim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['jsim']]).reshape(1,-1), k=k))
-            out['overlap_set_sim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['josie']]).reshape(1,-1), k=k))
+            out['overlap_set_sim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['os_sim']]).reshape(1,-1), k=k))
 
     k = 10_000
     for t in query_set:
@@ -297,7 +297,7 @@ def compute_ndcg_at_k(table_querying_arm_sloth: str | pd.DataFrame, query_set: s
         curr_subset = table_querying_arm_sloth[table_querying_arm_sloth['r_id']==t]
         out['armadillo'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['armadillo']]).reshape(1,-1), k=k))
         out['jsim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['jsim']]).reshape(1,-1), k=k))
-        out['overlap_set_sim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['josie']]).reshape(1,-1), k=k))
+        out['overlap_set_sim'].append(ndcg_score(y_true=np.array(curr_subset[['a%']]).reshape(1,-1), y_score=np.array(curr_subset[['os_sim']]).reshape(1,-1), k=k))
     out = pd.DataFrame(out)
     out.to_csv(outpath, index=False)
     return out
@@ -333,7 +333,7 @@ def compare_models_ndcg(data: pd.DataFrame | str, bin_criterion: str='k', bins_n
         new_data['k'].append(k)
         new_data['NDCG_Score'].append(round(np.mean(t['jsim']),2))
         
-    
+    plt.figure()
     df = pd.DataFrame(new_data)
     sns.set_theme(font_scale=font_scale, style="whitegrid")
     sns.barplot(data=df, x='k', y='NDCG_Score', hue='Approach')

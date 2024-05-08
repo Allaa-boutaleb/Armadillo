@@ -1,8 +1,7 @@
 import pickle
 import pandas as pd
-from graph import is_float
 from tqdm import tqdm
-from graph import *
+from .graph import *
 import numbers
 
 def compute_counts(t: pd.DataFrame) -> tuple:

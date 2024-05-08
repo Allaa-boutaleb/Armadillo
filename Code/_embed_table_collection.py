@@ -1,6 +1,6 @@
-from armadillo import *
-from _generate_graph_dict import generate_graph_dictionary
-from graph import Graph
+from .armadillo import *
+from ._generate_graph_dict import generate_graph_dictionary
+from .graph import Graph
 import sys
 
 class GraphsDataset(Dataset):

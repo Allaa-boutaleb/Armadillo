@@ -31,9 +31,8 @@ def compare_models_hist(data: pd.DataFrame | str, bin_criterion: str='a%', bins_
         else:
             t = t[t[bin_criterion] < i]
         
-        #curr =  f'{prev}_{i}'
         curr =  f'[{prev},\n{i}]'
-        #curr =  f'{prev},{i}'
+
         new_data['Approach'].append('Armadillo Gittables')
         new_data[ranges].append(curr)
         try:
@@ -46,7 +45,7 @@ def compare_models_hist(data: pd.DataFrame | str, bin_criterion: str='a%', bins_
         try:
             new_data['MAE'].append(round(np.mean(t['AE_josie']),2))
         except:
-            new_data['MAE'].append(round(np.mean(t['o_set_sim_AE']),2))
+            new_data['MAE'].append(round(np.mean(t['AE_os_sim']),2))
 
         new_data['Approach'].append('Jaccard Similarity')
         new_data[ranges].append(curr)
@@ -55,13 +54,13 @@ def compare_models_hist(data: pd.DataFrame | str, bin_criterion: str='a%', bins_
         except:
             new_data['MAE'].append(round(np.mean(t['jsim_AE']),2))
         
+        new_data['Approach'].append('Armadillo Wikitables')
+        new_data[ranges].append(curr)
         try:
-            new_data['Approach'].append('Armadillo Wikitables')
-            new_data[ranges].append(curr)
             new_data['MAE'].append(round(np.mean(t['armadillo_wikitables_AE']),2))
         except:
-            pass
-    
+            new_data['MAE'].append(1)
+    plt.figure()
     df = pd.DataFrame(new_data)
     sns.set_theme(font_scale=font_scale, style="whitegrid")
     sns.barplot(data=df, x=ranges, y='MAE', hue='Approach')
@@ -138,7 +137,7 @@ def visualize_scatter_plot(exp_data_file: str | dict, logx: bool=True, logy: boo
 
     x = areas
     y = t_execs
-
+    plt.figure()
     # Definisci la figura e gli assi per lo scatterplot
     fig, (ax_scatter, ax_kde) = plt.subplots(2, 1, figsize=(8, 8), 
                                             gridspec_kw={'height_ratios': [3, 1]})

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from data_visualization import *
+from .data_visualization import *
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 
@@ -18,9 +18,9 @@ def plot_box_group(df: pd.DataFrame | str, label_list: list, label_y: str='AE', 
     plt.rcParams.update({'font.size': 16})
     try:
         try:
-            ax = pd.DataFrame({'Armadillo\nGittables':df['AE_armadillo'], 'Armadillo\nWikitables':df['armadillo_wikitables_AE'],'Overlap Set\nSimilarity':df['AE_josie'], 'Jaccard\nSimilarity':df['AE_jsim']}).boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))#, fontsize=11)    
+            ax = pd.DataFrame({'Armadillo\nGittables':df['armadillo_gittables_AE'], 'Armadillo\nWikiLast':df['armadillo_wikilast_AE'],'Overlap Set\nSimilarity':df['AE_os_sim'], 'Jaccard\nSimilarity':df['AE_jsim']}).boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))#, fontsize=11)    
         except:
-            ax = pd.DataFrame({'Armadillo\nWikitables':df['armadillo_wikitables_AE'],'Armadillo\nGittables':df['armadillo_gittables_AE'],'Overlap Set\nSimilarity':df['o_set_sim_AE'], 'Jaccard\nSimilarity':df['jsim_AE']}).boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))#, fontsize=11)    
+            ax = pd.DataFrame({'Armadillo\nWikiLast':df['armadillo_wikilast_AE'],'Armadillo\nGittables':df['armadillo_gittables_AE'],'Overlap Set\nSimilarity':df['AE_os_sim'], 'Jaccard\nSimilarity':df['AE_jsim']}).boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))#, fontsize=11)    
     except:
         ax = df[label_list].boxplot(showfliers=False, whis=[0, 100], showmeans=True, meanline=True, medianprops=dict(color='black'), boxprops=dict(color='black'), whiskerprops=dict(color='black'))    
     
@@ -345,7 +345,7 @@ def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot
         t_exec_new_emb_already_comp = data['overlap_computation']
 
     x = t_execs_sloth
-
+    plt.figure()
     fig, (ax_scatter, ax_kde) = plt.subplots(2, 1, figsize=(8, 8), 
                                             gridspec_kw={'height_ratios': [3, 1]})
     ax_scatter.scatter(x, x, s=3, c='black', alpha=0.7, edgecolors='black', label='Sloth')

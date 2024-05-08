@@ -3,7 +3,7 @@ import numpy as np
 from tqdm import tqdm
 import pickle
 import torch.nn.functional as F
-from _overlap_computation import *
+from ._overlap_computation import *
 import matplotlib.pyplot as plt
 
 def clean_sloth(path: str | pd.DataFrame, outpath: str=None) -> pd.DataFrame:

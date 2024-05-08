@@ -46,3 +46,4 @@ if __name__ == '__main__':
     
     print('Training Starting')
     retrain_model(model_out_path=root_dataset+'/model.pth', train_file=root_dataset+'/train.csv', test_file=root_dataset+'/test.csv', valid_file=root_dataset+'/valid.csv', graph_dict=graph_dict)
+    print('Training is complete')

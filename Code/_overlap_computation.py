@@ -1,4 +1,4 @@
-from _embed_table_collection import *
+from ._embed_table_collection import *
 
 class EmbeddingsTriplesDataset(Dataset):
     
