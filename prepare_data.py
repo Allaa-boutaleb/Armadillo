@@ -41,11 +41,12 @@ if __name__ == '__main__':
                 - queryt_set_1k.pkl
                 - data_lake_10k.pkl
     """
-    root = '/home/francesco.pugnaloni/tmp'
+    root = ''                       # Insert the full name of the root directory here
+    gittables_csv_directory = ''    # Insert the full name of the directory containing the csv tables of gittables
+    wikilast_csv_directory = ''     # Insert the full name of the directory containing the csv tables of wikilast
+
     root_gittables = root+'/gittables_root'
     root_wikilast = root+'/wikilast_root'
-    gittables_csv_directory = '/home/francesco.pugnaloni/tmp/gittables'
-    wikilast_csv_directory = '/home/francesco.pugnaloni/tmp/wikilast'
     
     table_querying_tables = pd.read_csv(root_gittables+'/table_querying.csv')
     train_gittables = pd.read_csv(root_gittables+'/train.csv')

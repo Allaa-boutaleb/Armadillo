@@ -40,7 +40,8 @@ if __name__ == '__main__':
         Input: root of wikilast or gittables
         Output: a model.pth file containing the weights of new trained model
     """
-    root_dataset = '/home/francesco.pugnaloni/tmp/wikilast_root'
+    root_dataset = ''       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
+
     print('Building graph_dict')
     graph_dict = generate_graph_dictionary(table_dict_path=root_dataset+'/table_dict.pkl')
     

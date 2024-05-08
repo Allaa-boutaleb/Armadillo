@@ -75,7 +75,7 @@ def evaluate(model_GitTables: str, table_dict_GitTables: str | dict, model_WikiL
     compute_tables_stats(table_dict_WikiLast, root_wikilast+'/table_stats.csv')
 
 if __name__ == '__main__':
-    root = '/home/francesco.pugnaloni/tmp'
+    root = ''               # Insert the full name of the root directory here
     root_gittables = root+'/gittables_root'
     root_wikilast = root+'/wikilast_root'
 
@@ -92,4 +92,3 @@ if __name__ == '__main__':
              model_WikiLast=armadillo_wikilast, table_dict_WikiLast=root_wikilast+'/table_dict.pkl', 
              chart_data_path=root+'/chart_data', charts_path=root+'/charts', gittables_unlabeled=root_gittables+'/test.csv',
              wikilast_unlabeled=root_wikilast+'/test.csv')
-    
