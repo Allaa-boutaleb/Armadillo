@@ -1,5 +1,5 @@
 # Armadillo
-This repository contains the artifacts and source code for Armadillo, an approach based on graph neural networks that learns table embeddings whose cosine similarity approximates the overlap ratio between tables.
+This repository contains the artifacts, datasets, and source code regarding Armadillo, an approach based on graph neural networks that learns table embeddings whose cosine similarity approximates the overlap ratio between tables.
 
 To reproduce the results of the paper, please follow the instructions in the following sections.
 
@@ -19,6 +19,7 @@ The two triple datasets and a directory containing the tables in WikiLast in the
 The GitTables table collection is available [here](https://zenodo.org/records/6515799).
 
 ## Model weights
+This repository includes the weights of the two versions of Armadillo used to produce the results in the paper that have been trained using the GitTables_triple_dataset and the WikiLast_triple_dataset. The files are named `Armadillo_GitTables.pth` and `Armadillo_WikiLast.pth` and can be found in the directory called `Models`.
 
 ## Setup environment
 
