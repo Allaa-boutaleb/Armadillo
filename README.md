@@ -19,7 +19,7 @@ The two triple datasets and a directory containing the tables in WikiLast in the
 The GitTables table collection is available [here](https://zenodo.org/records/6515799).
 
 ## Model weights
-This repository includes the weights of the two versions of Armadillo used to produce the results in the paper that have been trained using the GitTables_triple_dataset and the WikiLast_triple_dataset. The files are named `Armadillo_GitTables.pth` and `Armadillo_WikiLast.pth` and can be found in the directory called `Models`.
+This repository contains the weights of the two versions of Armadillo used to produce the results in the paper, trained on the GitTables_triple_dataset and the WikiLast_triple_dataset respectively. The files are named `Armadillo_GitTables.pth` and `Armadillo_WikiLast.pth` and can be found in the directory called `Models`.
 
 ## Setup environment
 
