@@ -1,5 +1,5 @@
 # Armadillo
-This repository contains the artifacts that regard Armadillo, an approach based on graph neural networks that learns table embeddings whose cosine similarity approximates the overlap ratio between tables.
+This repository contains the artifacts that regard Armadillo, an approach based on graph neural networks for the generation of table embeddings whose cosine similarity approximates the overlap ratio between tables.
 
 To reproduce the results of the paper, please follow the instructions in the following sections.
 
