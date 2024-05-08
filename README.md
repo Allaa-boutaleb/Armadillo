@@ -11,6 +11,7 @@ The triple datasets comprise a total of 1.32 million samples and their triples a
 | ------------------------ |:----------------:| ----------------:| ------------------ |
 | GitTables_triple_dataset | 500 000          | 100 000          | 100 000            |
 | WikiLast_triple_dataset  | 500 000          | 60 000           | 60 000             |
+
 Note that there are no repetitions of tables in the train-test-validation split, so a model trained on these datasets is granted not only to be evaluated on previously unseen couples but also on completely new tables.
 
 The two triple datasets and a directory containing the tables in WikiLast in the .csv format are available at [here](//my.hidrive.com/share/6tuees3os3).
