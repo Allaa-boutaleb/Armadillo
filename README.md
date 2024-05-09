@@ -16,7 +16,7 @@ Note that there are no repetitions of tables in the train-test-validation split,
 
 The two triple datasets and a directory containing the tables in WikiLast in the .csv format are available [here](https://my.hidrive.com/share/6tuees3os3).
 
-The GitTables table collection is available [here](https://zenodo.org/records/6515799).
+The GitTables table collection is available [here](https://zenodo.org/records/6515973).
 
 ## Model weights
 This repository contains the weights of the two versions of Armadillo used to produce the results in the paper. They are trained on the GitTables_triple_dataset and the WikiLast_triple_dataset respectively and are stored in the files named `Armadillo_GitTables.pth` and `Armadillo_WikiLast.pth` that can be found in the directory called `Models`.
