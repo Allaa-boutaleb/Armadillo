@@ -8,7 +8,7 @@ We propose two triple datasets composed of pairs of tables and their overlap rat
 
 The triple datasets comprise a total of 1.32 million samples and their triples are divided into training, testing, and validation data as follows:
 | Dataset                  | Training triples | Testing triples  | Validation triples | 
-| ------------------------ |:----------------:| ----------------:| ------------------ |
+| ------------------------ |-----------------:| ----------------:| ------------------:|
 | GitTables_triple_dataset | 500 000          | 100 000          | 100 000            |
 | WikiLast_triple_dataset  | 500 000          | 60 000           | 60 000             |
 
