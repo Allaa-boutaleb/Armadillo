@@ -37,10 +37,10 @@ def generate_table_dict(csv_folder_path: str, outpath: str=None, table_set: set=
         t = None
         path = csv_folder_path + '/' + filenames[i]
         try:
-            t = pd.read_csv(path, sep=',', header=None)
+            t = pd.read_csv(path, sep=',')
         except:
             try:
-                t = pd.read_csv(path, sep='#', header=None)
+                t = pd.read_csv(path, sep='#')
             except:
                 log.append(path)
         if isinstance(t, pd.DataFrame):

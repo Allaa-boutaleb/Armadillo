@@ -1,6 +1,45 @@
 import os
 import pandas as pd
 from Code._csv_preprocessing import *
+import zipfile
+import pandas as pd
+import os
+import shutil
+from tqdm import tqdm
+
+def process_zip(root: str, zip_name: str, out_dir: str) -> list:
+    tmp_dir = root + '/tmp/'+zip_name
+    if not os.path.exists(tmp_dir):
+        os.makedirs(tmp_dir)
+    with zipfile.ZipFile(root+'/zips/'+zip_name, 'r') as zip_ref:
+        zip_ref.extractall(tmp_dir)
+    files = list(os.listdir(tmp_dir))
+    dropped = []
+    for file in files:
+        try:
+            shutil.move(tmp_dir+'/'+file, out_dir+'/'+zip_name+'_'+file)
+        except:
+            dropped.append(file)
+    return dropped
+
+def extract_csv_gittables(root: str, gittables_csv_directory: str, zip_files: str) -> list:
+    if not os.path.exists(gittables_csv_directory):
+        os.makedirs(gittables_csv_directory)
+    if not os.path.exists(root+'/tmp'):
+        os.makedirs(root+'/tmp')
+    if not os.path.exists(root+'/zips'):
+        os.makedirs(root+'/zips')
+    print('Unzipping gittables')
+    with zipfile.ZipFile(root+'/'+zip_files, 'r') as zip_ref:
+        zip_ref.extractall(root+'/zips')
+    zips = list(os.listdir(root+'/zips'))
+    print(type(zips))
+    dropped = []
+    
+    print('Creating collection')
+    for zip in tqdm(zips):
+        dropped+=process_zip(root=root, zip_name=zip, out_dir=gittables_csv_directory)
+    return dropped
 
 def get_table_list(df: pd.DataFrame) -> list:
     out = []
@@ -8,6 +47,7 @@ def get_table_list(df: pd.DataFrame) -> list:
         out.append(df.iloc[r]['r_id'])
         out.append(df.iloc[r]['s_id'])
     return out
+
 def get_table_set(tables: list) -> set:
     out = []
     for t in tables:
@@ -42,8 +82,12 @@ if __name__ == '__main__':
                 - data_lake_10k.pkl
     """
     root = ''                       # Insert the full name of the root directory here
-    gittables_csv_directory = ''    # Insert the full name of the directory containing the csv tables of gittables
+    gittables_csv_directory = ''    # Insert the full name of the directory where to save the csv tables of gittables
+    gittables_root_zip = ''         # Insert the full name of the directory containing the zip containing the tables of gittables
+    zip_files_gittables_path = ''   # Path to the zip file containing the files downloaded from GitTables
     wikilast_csv_directory = ''     # Insert the full name of the directory containing the csv tables of wikilast
+
+    extract_csv_gittables(root=gittables_root_zip, gittables_csv_directory=gittables_csv_directory, zip_files=zip_files_gittables_path)
 
     root_gittables = root+'/gittables_root'
     root_wikilast = root+'/wikilast_root'
