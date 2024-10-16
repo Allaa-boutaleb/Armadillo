@@ -1,3 +1,6 @@
+import sys
+sys.path.append(".")
+sys.path.append("../../")
 import pickle
 import pandas as pd
 from tqdm import tqdm
@@ -58,5 +61,17 @@ def compute_tables_stats(table_dict: dict | str, outpath: str) -> None:
         new_cols['n_bools'].append(n_bools)
     
     out = pd.DataFrame(new_cols)
-    out.describe().to_csv(outpath, index=False)
+    out.to_csv(outpath, index=False)
 
+if __name__ == '__main__':
+    root = ''
+    params_wiki = {
+        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
+        'outpath':root+'/WikiTables/table_stats/stats.csv'
+    }
+    params_git = {
+        'table_dict':root+'/GitTables/dictionaries/table_dictionaries/table_dict.pkl',
+        'outpath':root+'/GitTables/table_stats/stats.csv'
+    }
+    compute_tables_stats(**params_wiki)
+    compute_tables_stats(**params_git)

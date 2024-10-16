@@ -162,3 +162,9 @@ cython_debug/
 .vscode/
 
 wandb/
+
+*lightning_logs*
+Baselines/turl*
+Baselines/sloth/sloth*
+Baselines/embdi/embdi*
+pdfs*

@@ -41,10 +41,17 @@ if __name__ == '__main__':
         Output: a model.pth file containing the weights of new trained model
     """
     root_dataset = ''       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
-
+    table_dict = ''
+    graph_dict = ''
+    model_out = ''
     print('Building graph_dict')
-    graph_dict = generate_graph_dictionary(table_dict_path=root_dataset+'/table_dict.pkl')
+    try:
+        with open(graph_dict,'rb') as f:
+            graph_dict = pickle.load(f)
+    except:
+        print('Generating graph dict from scratch')
+        graph_dict = generate_graph_dictionary(table_dict_path=table_dict, out_path=graph_dict)
     
     print('Training Starting')
-    retrain_model(model_out_path=root_dataset+'/model.pth', train_file=root_dataset+'/train.csv', test_file=root_dataset+'/test.csv', valid_file=root_dataset+'/valid.csv', graph_dict=graph_dict)
+    retrain_model(model_out_path=model_out, train_file=root_dataset+'/train.csv', test_file=root_dataset+'/test.csv', valid_file=root_dataset+'/valid.csv', graph_dict=graph_dict)
     print('Training is complete')

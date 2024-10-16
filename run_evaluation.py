@@ -6,18 +6,20 @@ from Code._table_querying import *
 import os
 from pathlib import Path
 
-def evaluate(model_GitTables: str, table_dict_GitTables: str | dict, model_WikiLast: str, table_dict_WikiLast: str | dict, 
-             gittables_unlabeled: str, wikilast_unlabeled: str, chart_data_path: str, charts_path: str) -> None:
+def evaluate(model_GitTables: str=None, table_dict_GitTables: str | dict=None, model_WikiLast: str=None, table_dict_WikiLast: str | dict=None, 
+             gittables_unlabeled: str=None, wikilast_unlabeled: str=None, chart_data_path: str=None, charts_path: str=None, sloth_querying_results_path: str=None) -> None:
     #prepare data for charts
     #Embedding generation time
     print('Test: embedding all of the tables in GitTables using armadillo_gittables')
     run_experiment(model_file=model_GitTables, table_dict_path=table_dict_GitTables, iters=3, experiment_data_file_path=chart_data_path+'/embedding_gen_time_gittables.pkl', embedding_file=chart_data_path+'/embedding_file_git_on_git.pkl')
-    print('Test: embedding all of the tables in GitTables using armadillo_wikilast')
-    run_experiment(model_file=model_WikiLast, table_dict_path=table_dict_GitTables, iters=1, embedding_file=chart_data_path+'/embedding_file_wiki_on_git.pkl')
 
+    # print('Test: embedding all of the tables in GitTables using armadillo_wikilast')
+    run_experiment(model_file=model_WikiLast, table_dict_path=table_dict_GitTables, iters=1, embedding_file=chart_data_path+'/embedding_file_wiki_on_git.pkl')
+    
     print('Test: embedding all of the tables in WikiLast using armadillo_wikilast')
     run_experiment(model_file=model_WikiLast, table_dict_path=table_dict_WikiLast, iters=3, experiment_data_file_path=chart_data_path+'/embedding_gen_time_wikilast.pkl', embedding_file=chart_data_path+'/embedding_file_wiki_on_wiki.pkl')
-    print('Test: embedding all of the tables in WikiLast using armadillo_gittables')
+    
+    # print('Test: embedding all of the tables in WikiLast using armadillo_gittables')
     run_experiment(model_file=model_GitTables, table_dict_path=table_dict_WikiLast, iters=1, embedding_file=chart_data_path+'/embedding_file_git_on_wiki.pkl')
 
     #Major comparison
@@ -29,26 +31,31 @@ def evaluate(model_GitTables: str, table_dict_GitTables: str | dict, model_WikiL
 
     recompute_embeddings_overlaps_overlap_computation_time(unlabeled_dataset=wikilast_unlabeled, model_file=model_WikiLast, table_dict=table_dict_WikiLast, output_file=chart_data_path+'/effe_effi_wikilast.csv')
     repeat_test_emb_already_computed(old_file=chart_data_path+'/effe_effi_wikilast.csv', embeddings_dict=chart_data_path+'/embedding_file_wiki_on_wiki.pkl', out_path=chart_data_path+'/effe_effi_wikilast.csv')
-    add_new_column_prediction_armadillo(old_data=chart_data_path+'/effe_effi_wikilast.csv', embedding_dict=chart_data_path+'/embedding_file_git_on_wiki.pkl', out_path=chart_data_path+'/effe_effi_wikilast.csv', label='gittables')
+
+    # add_new_column_prediction_armadillo(old_data=chart_data_path+'/effe_effi_wikilast.csv', embedding_dict=chart_data_path+'/embedding_file_git_on_wiki.pkl', out_path=chart_data_path+'/effe_effi_wikilast.csv', label='gittables')
     add_new_column_prediction_armadillo(old_data=chart_data_path+'/effe_effi_wikilast.csv', embedding_dict=chart_data_path+'/embedding_file_wiki_on_wiki.pkl', out_path=chart_data_path+'/effe_effi_wikilast.csv', label='wikilast')
 
 
     #NDCG table querying
-    run_table_querying_experiment(query_set=root_gittables+'/query_set_1k.pkl', target_set=root_gittables+'/data_lake_10k.pkl', model=armadillo_gittables, target_embedding_dict=chart_data_path+'/embedding_file_git_on_git.pkl', 
-                                  table_dict=table_dict_GitTables, outpath=chart_data_path+'/table_querying_arm.pkl')
-    add_armadillo_predictions_to_sloth_file(sloth_baseline_out='/home/francesco.pugnaloni/tmp/gittables_root/table_querying.csv', armadillo_out=chart_data_path+'/table_querying_arm.pkl', outpath=chart_data_path+'/armadillo_sloth_table_querying_enriched.csv')
+    run_table_querying_experiment(query_set=root_gittables+'/query_set_1k.pkl', target_set=root_gittables+'/data_lake_10k.pkl', model=model_GitTables, target_embedding_dict=chart_data_path+'/embedding_file_git_on_git.pkl', 
+                                table_dict=table_dict_GitTables, outpath=chart_data_path+'/table_querying_arm.pkl')
+    add_armadillo_predictions_to_sloth_file(sloth_baseline_out=sloth_querying_results_path, armadillo_out=chart_data_path+'/table_querying_arm.pkl', outpath=chart_data_path+'/armadillo_sloth_table_querying_enriched.csv')
     compute_ndcg_at_k(table_querying_arm_sloth=chart_data_path+'/armadillo_sloth_table_querying_enriched.csv', query_set=root_gittables+'/query_set_1k.pkl', outpath=chart_data_path+'/ndcg_score.csv')
 
 
-    #plot chart MAE compared to baseline
+    # plot chart MAE compared to baseline
     print('Generating MAE boxplot for GitTables')
     plot_box_group(chart_data_path+'/effe_effi_gittables.csv', label_list=['armadillo_gittables_AE', 'armadillo_wikilast_AE','AE_os_sim','AE_jsim'], out_pdf=charts_path+'/mae_comparison_baseline_gittables.pdf')
+    plot_box_group(chart_data_path+'/effe_effi_gittables.csv', label_list=['armadillo_gittables_AE','AE_os_sim','AE_jsim'], out_pdf=charts_path+'/mae_comparison_baseline_gittables.pdf')
+    
     print('Generating MAE boxplot for WikiLast')
     plot_box_group(chart_data_path+'/effe_effi_wikilast.csv', label_list=['armadillo_wikilast_AE','armadillo_gittables_AE','AE_os_sim','AE_jsim'],out_pdf=charts_path+'/mae_comparison_baseline_wikilast.pdf')
-
+    plot_box_group(chart_data_path+'/effe_effi_wikilast.csv', label_list=['armadillo_wikilast_AE','AE_os_sim','AE_jsim'],out_pdf=charts_path+'/mae_comparison_baseline_wikilast.pdf')
+    
     #plot chart MAE per bin compared to baseline
     print('Generating MAE per bin barplot for GitTables')
     compare_models_hist(chart_data_path+'/effe_effi_gittables.csv', out_pdf=charts_path+'/mae_comparison_baseline_per_bin_gittables.pdf', font_scale=1.1)
+    
     print('Generating MAE per bin barplot for WikiLast')
     compare_models_hist(chart_data_path+'/effe_effi_wikilast.csv', out_pdf=charts_path+'/mae_comparison_baseline_per_bin_wikilast.pdf', font_scale=1.1)
 
@@ -75,20 +82,27 @@ def evaluate(model_GitTables: str, table_dict_GitTables: str | dict, model_WikiL
     compute_tables_stats(table_dict_WikiLast, root_wikilast+'/table_stats.csv')
 
 if __name__ == '__main__':
-    root = ''               # Insert the full name of the root directory here
-    root_gittables = root+'/gittables_root'
-    root_wikilast = root+'/wikilast_root'
+    root_gittables = ''
+    root_wikilast = ''
 
-    armadillo_gittables = str(Path.cwd())+'/Models/Armadillo_GitTables.pth'
-    armadillo_wikilast = str(Path.cwd())+'/Models/Armadillo_WikiLast.pth'
+    model_GitTables = '' 
+    table_dict_GitTables = ''
+    model_WikiLast = ''
+    table_dict_WikiLast = ''
+    gittables_unlabeled = ''
+    wikilast_unlabeled = '' 
+    chart_data_path = '' 
+    charts_path = ''
+    sloth_querying_results_path = ''
 
-    if not os.path.exists(root+'/chart_data'):
-        os.makedirs(root+'/chart_data')
-
-    if not os.path.exists(root+'/charts'):
-        os.makedirs(root+'/charts')
-
-    evaluate(model_GitTables=armadillo_gittables, table_dict_GitTables=root_gittables+'/table_dict.pkl',
-             model_WikiLast=armadillo_wikilast, table_dict_WikiLast=root_wikilast+'/table_dict.pkl', 
-             chart_data_path=root+'/chart_data', charts_path=root+'/charts', gittables_unlabeled=root_gittables+'/test.csv',
-             wikilast_unlabeled=root_wikilast+'/test.csv')
+    evaluate(
+        model_GitTables = model_GitTables, 
+        table_dict_GitTables = table_dict_GitTables,
+        model_WikiLast = model_WikiLast,
+        table_dict_WikiLast = table_dict_WikiLast, 
+        gittables_unlabeled = gittables_unlabeled,
+        wikilast_unlabeled = wikilast_unlabeled,
+        chart_data_path = chart_data_path,
+        charts_path = charts_path,
+        sloth_querying_results_path = sloth_querying_results_path
+    )

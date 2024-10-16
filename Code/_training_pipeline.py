@@ -62,13 +62,14 @@ def training_pipeline(train_file: str, test_file: str, valid_file: str, graph_fi
     print(f'T_train: {t_train}s')
 
     start = time.time()
-    execution_insights_test = test(model, test_dataset, batch_size) 
+    execution_insights_test = test(model, test_dataset, batch_size)
     mse = execution_insights_test['mse'] 
+    mae = execution_insights_test['mae'] 
     end = time.time()
     t_test = end-start
     print(f'T_test: {t_test}s')
     print(f'MSE: {mse}')
-
+    print(f'MAE: {mae}')
     print('Generating tests for bags')
 
     execution_insights = {'test':execution_insights_test}

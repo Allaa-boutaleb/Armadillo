@@ -83,17 +83,10 @@ def run_all(operations: list=['build_graph_dict', 'build_embedding_dict', 'effic
 
 
 if __name__ == '__main__':
-    td = {
-        'a':pd.DataFrame({'a':[1,2,3,4], 'b':['gatto','cane', 'iena','pollo']}),
-        'b':pd.DataFrame({'nutria':[7,8,9], 'armadillo':[1,2,3]})
-    }
-    with open('/home/francesco.pugnaloni/tmp/tables_test.pkl', 'wb') as f:
-        pickle.dump(td,f)
-    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/train.csv', index=False)
-    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/test.csv', index=False)
-    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv('/home/francesco.pugnaloni/tmp/valid.csv', index=False)
-
-    root = '/home/francesco.pugnaloni/tmp/'
+    root = ''
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv(root+'/train.csv', index=False)
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv(root+'/test.csv', index=False)
+    pd.DataFrame({'r_id':['a'], 's_id':['b'], 'a%':[0.3]}).to_csv(root+'/valid.csv', index=False)
 
     run_all(
         operations=[

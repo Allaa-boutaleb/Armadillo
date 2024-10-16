@@ -33,12 +33,12 @@ class EmbeddingsTriplesDataset(Dataset):
         """
         t = self.triples.iloc[idx][:]
         try:
-            g1 = self.embeddings[str(t.iloc[0])]
-            g2 = self.embeddings[str(t.iloc[1])]
+            g1 = self.embeddings[str(t.loc['r_id'])]
+            g2 = self.embeddings[str(t.loc['s_id'])]
         except:
-            g1 = self.embeddings[str(int(t.iloc[0]))]
-            g2 = self.embeddings[str(int(t.iloc[1]))]
-        return g1, g2, t.iloc[2]
+            g1 = self.embeddings[str(int(t.loc['r_id']))]
+            g2 = self.embeddings[str(int(t.loc['s_id']))]
+        return g1, g2, t.loc['a%']
     
 class TriplesDataset(Dataset):
     
@@ -72,12 +72,12 @@ class TriplesDataset(Dataset):
         """
         t = self.triples.iloc[idx][:]
         try:
-            g1 = str(t.iloc[0])
-            g2 = str(t.iloc[1])
+            g1 = str(t.loc['r_id'])
+            g2 = str(t.loc['s_id'])
         except:
-            g1 = str(int(t.iloc[0]))
-            g2 = str(int(t.iloc[1]))
-        return g1, g2, t.iloc[2]
+            g1 = str(int(t.loc['r_id']))
+            g2 = str(int(t.loc['s_id']))
+        return g1, g2, t.loc['a%']
 
 def compute_embeddings(model_file: str, graph_dict: dict, batch_size: int=128, mode: str='batch') -> dict:
     """method to compute the embeddings of the graphs in a graph_dictionary

@@ -321,7 +321,7 @@ def show_mae_per_perc_num(results_path: str | pd.DataFrame, labels_dict: str | d
             plot_dict(d,'Correct Label Range','MAE')
 
 
-def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot_area', logx: bool=True, logy: bool=True, output_pdf: str=None, font_size=15) -> None:
+def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot_area', logx: bool=True, logy: bool=True, output_pdf: str=None, x_axis: str=None, font_size=15) -> None:
     """visualize embedding generation time on the y axis and table area on the x axis
 
     Args:
@@ -344,7 +344,10 @@ def show_scatter_t_exec_sloth_arm(results: str | pd.DataFrame, x_label: str='tot
     except:
         t_exec_new_emb_already_comp = data['overlap_computation']
 
-    x = t_execs_sloth
+    if x_axis == None:
+        x = t_execs_sloth
+    else:
+        x = data[x_axis]
     plt.figure()
     fig, (ax_scatter, ax_kde) = plt.subplots(2, 1, figsize=(8, 8), 
                                             gridspec_kw={'height_ratios': [3, 1]})

@@ -52,12 +52,12 @@ class GraphTriplesDataset(Dataset):
     def get(self, idx:int) -> tuple:
         t = self.triples.iloc[idx][:]
         try:
-            g1 = self.graphs[str(t.iloc[0])]
-            g2 = self.graphs[str(t.iloc[1])]
+            g1 = self.graphs[str(t.loc['r_id'])]
+            g2 = self.graphs[str(t.loc['s_id'])]
         except:
-            g1 = self.graphs[str(int(t.iloc[0]))]
-            g2 = self.graphs[str(int(t.iloc[1]))]
-        return Data(g1.X, g1.edges), Data(g2.X, g2.edges), t.iloc[2]
+            g1 = self.graphs[str(int(t.loc['r_id']))]
+            g2 = self.graphs[str(int(t.loc['s_id']))]
+        return Data(g1.X, g1.edges), Data(g2.X, g2.edges), t.loc['a%']
     
     
 def train_test_valid_split(df: pd.DataFrame, ttv_ratio: set=(0.8,0.1,0.1)) -> set:
@@ -513,11 +513,13 @@ def train_test_pipeline_split(train_file: str, test_file: str, valid_file: str, 
 
     start = time.time()
     execution_insights_test = test(model, test_dataset, batch_size) 
-    mse = execution_insights_test['mse'] 
+    mse = execution_insights_test['mse']
+    mae = execution_insights_test['mae'] 
     end = time.time()
     t_test = end-start
     print(f'T_test: {t_test}s')
     print(f'MSE: {mse}')
+    print(f'MAE: {mae}')
 
     print('Generating tests for bags')
 

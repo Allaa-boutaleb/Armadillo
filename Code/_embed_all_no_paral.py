@@ -1,4 +1,7 @@
-from ._overlap_computation import *
+import sys
+sys.path.append(".")
+sys.path.append("../../")
+from Code._overlap_computation import *
 import tqdm
 import matplotlib.pyplot as plt
 
@@ -145,3 +148,74 @@ def run_experiment(model_file: str, table_dict_path: str | dict=None, graphs_pat
     if experiment_data_file_path:
         with open(experiment_data_file_path, 'wb') as f:
             pickle.dump(experiment_data,f)
+
+def sub_dict(td, df):
+    tables = set(df['r_id']).union(set(df['s_id']))
+    out = {k:td[k] for k in tables}
+    return out
+if __name__ == '__main__':
+    root = ''
+    root_git = root+'/GitTables/'
+    root_wiki = root+'/WikiTables/'
+    
+    # print('Loading table dictionary git')
+    # with open(root_git+'/dictionaries/table_dictionaries/table_dict.pkl','rb') as f:
+    #     td_git = pickle.load(f)
+    # td_git = sub_dict(td_git, pd.read_csv(root_git+'/test.csv'))    
+
+    # print('Loading table dictionary wiki')
+    # with open(root_wiki+'/dictionaries/table_dict.pkl','rb') as f:
+    #     td_wiki = pickle.load(f)
+    # td_wiki = sub_dict(td_wiki, pd.read_csv(root_wiki+'/test.csv'))
+
+    # armadillo_g_g = {
+    #     'model_file': root_git+'/models/armadillo_git.pth', 
+    #     'table_dict_path': td_git, 
+    #     'graphs_path': None, 
+    #     'experiment_data_file_path': root_git+'/dictionaries/embedding_dictionaries/t_execs_armadillo_g_g.pkl', 
+    #     'iters': 1, 
+    #     'embedding_file': root_git+'/dictionaries/embedding_dictionaries/embedding_dict_test_set_armadillo_g_g.pkl'
+    # }
+    # armadillo_g_w = {
+    #     'model_file': root_git+'/models/armadillo_git.pth', 
+    #     'table_dict_path': td_wiki, 
+    #     'graphs_path': None, 
+    #     'experiment_data_file_path': root_wiki+'/dictionaries/embedding_dictionaries/t_execs_armadillo_g_w.pkl', 
+    #     'iters': 1, 
+    #     'embedding_file': root_wiki+'/dictionaries/embedding_dictionaries/embedding_dict_test_set_armadillo_g_w.pkl'
+    # }
+    # armadillo_w_w = {
+    #     'model_file': root_wiki+'/models/armadillo_wiki.pth', 
+    #     'table_dict_path': td_wiki, 
+    #     'graphs_path': None, 
+    #     'experiment_data_file_path': root_wiki+'/dictionaries/embedding_dictionaries/t_execs_armadillo_w_w.pkl', 
+    #     'iters': 1, 
+    #     'embedding_file': root_wiki+'/dictionaries/embedding_dictionaries/embedding_dict_test_set_armadillo_w_w.pkl'
+    # }
+    # armadillo_w_g = {
+    #     'model_file': root_wiki+'/models/armadillo_wiki.pth', 
+    #     'table_dict_path': td_git, 
+    #     'graphs_path': None, 
+    #     'experiment_data_file_path': root_git+'/dictionaries/embedding_dictionaries/t_execs_armadillo_w_g.pkl', 
+    #     'iters': 1, 
+    #     'embedding_file': root_git+'/dictionaries/embedding_dictionaries/embedding_dict_test_set_armadillo_w_g.pkl'
+    # }
+
+    with open(root+'/GitTables/table_querying/dictionaries/table_dict_table_querying.pkl', 'rb') as f:
+        td_querying = pickle.load(f)
+    
+    armadillo_querying = {
+        'model_file': root+'/GitTables/models/armadillo_git.pth', 
+        'table_dict_path': td_querying, 
+        'graphs_path': None, 
+        'experiment_data_file_path': root+'/GitTables/table_querying/dictionaries/embedding_dictionaries/t_execs_armadillo_querying.pkl', 
+        'iters': 1, 
+        'embedding_file': root+'/GitTables/table_querying/dictionaries/embedding_dictionaries/embedding_armadillo_querying.pkl'
+    }
+
+    run_experiment(**armadillo_querying)
+
+    # run_experiment(**armadillo_w_w)
+    # run_experiment(**armadillo_w_g)
+    # run_experiment(**armadillo_g_g)
+    # run_experiment(**armadillo_g_w)

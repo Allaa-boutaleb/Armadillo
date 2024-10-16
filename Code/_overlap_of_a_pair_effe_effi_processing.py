@@ -40,7 +40,7 @@ def re_evaluate_sloth_out(cleaned_sloth_output: str | pd.DataFrame, embedding_di
             predictions = float(predictions.cpu())
         except:
             pass 
-        t = float(d1.iloc[i].iloc[2])
+        t = float(d1.iloc[i].loc['a%'])
 
         if pd.isnull(t):
             t = 0
@@ -48,8 +48,8 @@ def re_evaluate_sloth_out(cleaned_sloth_output: str | pd.DataFrame, embedding_di
 
         l.append(abs(predictions-t))
 
-        out['l_id'].append(d1.iloc[i].iloc[0])
-        out['r_id'].append(d1.iloc[i].iloc[1])
+        out['l_id'].append(d1.iloc[i].loc['r_id'])
+        out['r_id'].append(d1.iloc[i].loc['s_id'])
         out['overlap_pred'].append(predictions)
         out['overlap_true'].append(t)
         out['AE'].append(ae)
@@ -275,7 +275,7 @@ def add_new_column_prediction_armadillo(old_data: str | pd.DataFrame, embedding_
     }
     
     for i in tqdm(range(d1.shape[0])):
-        predictions = max(float(0), F.cosine_similarity(em[d1.iloc[i].iloc[0]], em[d1.iloc[i].iloc[1]], dim=1))
+        predictions = max(float(0), F.cosine_similarity(em[d1.iloc[i].loc['r_id']], em[d1.iloc[i].loc['s_id']], dim=1))
         try:
             predictions = float(predictions.cpu())
         except:
