@@ -41,9 +41,9 @@ if __name__ == '__main__':
         Output: a model.pth file containing the weights of new trained model
     """
     root_dataset = ''       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
-    table_dict = ''
-    graph_dict = ''
-    model_out = ''
+    table_dict = ''         # Insert here the full name of the table dictionary, e.g., root/gittables_root/dictionaries/table_dict.pkl
+    graph_dict = ''         # Insert here the full name of the graph dictionary, e.g., root/gittables_root/dictionaries/graph_dict.pkl
+    model_out = ''          # Insert here the full name of the model checkpoint, e.g., root/gittables_root/models/armadillo_git.pth
     print('Building graph_dict')
     try:
         with open(graph_dict,'rb') as f:

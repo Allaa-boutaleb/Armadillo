@@ -198,23 +198,23 @@ if __name__ == '__main__':
 
 
     tests = [
-        # embdi_on_wiki,
-        turl_t_g_on_git
-        # turl_t_w_on_wiki,
-        # bert_r_g_on_git,
-        # bert_r_w_on_wiki,
-        # bert_t_g_on_git,
-        # bert_t_g_on_wiki,
-        # bert_t_w_on_wiki,
-        # bert_t_w_on_git,
-        # bert_t_n_w_on_wiki,
-        # roberta_r_g_on_git,
-        # roberta_r_w_on_wiki,
-        # roberta_t_g_on_git,
-        # roberta_t_g_on_wiki,
-        # roberta_t_w_on_wiki,
-        # roberta_t_w_on_git,
-        # roberta_t_n_w_on_wiki
+        embdi_on_wiki,
+        turl_t_g_on_git,
+        turl_t_w_on_wiki,
+        bert_r_g_on_git,
+        bert_r_w_on_wiki,
+        bert_t_g_on_git,
+        bert_t_g_on_wiki,
+        bert_t_w_on_wiki,
+        bert_t_w_on_git,
+        bert_t_n_w_on_wiki,
+        roberta_r_g_on_git,
+        roberta_r_w_on_wiki,
+        roberta_t_g_on_git,
+        roberta_t_g_on_wiki,
+        roberta_t_w_on_wiki,
+        roberta_t_w_on_git,
+        roberta_t_n_w_on_wiki
     ]
     results = {}
     for t in tests:
