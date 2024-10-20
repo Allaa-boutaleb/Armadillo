@@ -35,7 +35,7 @@ We provide eight scripts and one notebook to replicate our experiments:
 * `3_generate_embeddings_baselines.py`: for each baseline embedding model generate table embeddings of the tables in GitTables and WikiTables. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `4_train_scaling_heads_baselines.py`: for each baseline embedding model, train a scaling head to scale the embeddings generated using the third script into the correct format. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `5_evaluate_scaling_models.py`: for each baseline embedding model, run the evaluation. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
-* `6_evaluate_jaccard_bag.py`: evaluates the baselines based on the Jaccard under set semantics. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
+* `6_evaluate_jaccard_bag.py`: evaluates the baselines based on the Jaccard under bag semantics. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `7_evaluate_armadillo.py`: Evaluates armadillo. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `8_prepare_plot_data.py`: prepares a data frame containing the data necessary for generating the charts. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `9_plots.ipynb`: contains the code for visualizing the results.
