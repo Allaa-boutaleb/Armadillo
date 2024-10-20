@@ -30,7 +30,7 @@ Before running the experiments perform the following preliminary operations:
 * Download [this]() version of EmbDI and insert the repository into `Baselines/embdi`
 
 We provide eight scripts and one notebook to replicate our experiments:
-* `1_data_preparation.py`: generates some preliminary artifacts necessary for running the experiments. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
+* `1_data_preparation.py`: generates the preliminary artifacts necessary for running the experiments. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `2_run_training_armadillo.py`: retrain a new Armadillo model from scratch using the triple datasets. Note that the retraining is heavily demanding in terms of resources, in particular, it is suggested to have at least 50 GB of RAM and free disk space when using the WikiLast_triple_dataset and 200 GB of RAM and free disk space when using the GitTables_triples_dataset. Before running the script open the file and assign to the `root_dataset` variable the path to the directory containing the triple datasets for train, test, and validation to use. 
 * `3_generate_embeddings_baselines.py`: for each baseline embedding model generate table embeddings of the tables in GitTables and WikiTables. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `4_train_scaling_heads_baselines.py`: for each baseline embedding model, train a scaling head to scale the embeddings generated using the third script into the correct format. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
@@ -38,4 +38,4 @@ We provide eight scripts and one notebook to replicate our experiments:
 * `6_evaluate_jaccard_bag.py`: evaluates the baselines based on the Jaccard under set semantics. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `7_evaluate_armadillo.py`: Evaluates armadillo. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `8_prepare_plot_data.py`: prepares a data frame containing the data necessary for generating the charts. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
-* `9_plots.ipynb`: contains the code for visualising the results.
+* `9_plots.ipynb`: contains the code for visualizing the results.
