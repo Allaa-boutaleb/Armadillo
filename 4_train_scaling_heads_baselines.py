@@ -64,6 +64,10 @@ checkpoints_git= root_git+'/models/checkpoints/'
 checkpoints_wiki = root_wiki+'/models/checkpoints/'
 
 if __name__ == '__main__':
+    if not os.path.exists(root_git+'/models/checkpoints/'):
+        os.makedirs(root_git+'/models/checkpoints/')
+    if not os.path.exists(root_wiki+'/models/checkpoints/'):
+        os.makedirs(root_wiki+'/models/checkpoints/')
         #_____________________________ROWS GRANULARITY
     params_bert_rows_300_300_gittables={
         'train':root_git+'train.csv',

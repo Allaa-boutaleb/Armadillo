@@ -9,6 +9,7 @@ Using artificial restriciton of using only builtin Python 3 only.
 import doctest
 import time
 import itertools
+import os
 
 def multiset_intersection_cardinality(x: list, y: list) -> int:
     """Returns the number of elements of x and y intersection."""
@@ -47,7 +48,7 @@ def jaccard_similarity_bags(x: list, y: list) -> float:
     intersection_cardinality = multiset_intersection_cardinality(x, y)
     union_cardinality = multiset_union_cardinality(x, y)
     smaller_cardinality = multiset_smaller_cardinality(x,y)
-    return (intersection_cardinality / union_cardinality), (intersection_cardinality / smaller_cardinality)
+    return 2*(intersection_cardinality / union_cardinality), (intersection_cardinality / smaller_cardinality)
 
 def get_value_list(df):
     values = df.values.tolist()
@@ -88,6 +89,13 @@ def add_jaccard_bag_column(df: str|pd.DataFrame, table_dict: dict|str):
     
 if __name__ == '__main__':
     root = ''
+    if not os.path.exists(root+'/WikiTables/evaluation/'):
+        os.makedirs(root+'/WikiTables/evaluation/')
+    if not os.path.exists(root+'/GitTables/evaluation/eval_wiki.csv'):
+        os.makedirs(root+'/GitTables/evaluation/eval_wiki.csv')
+    if not os.path.exists(root+'/GitTables/table_querying/evaluation/'):
+        os.makedirs(root+'/GitTables/table_querying/evaluation/')
+    
     wikitables = {
         'df':root+'/WikiTables/evaluation/eval_wiki.csv',
         'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl'

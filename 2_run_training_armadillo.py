@@ -1,6 +1,7 @@
 from Code._training_pipeline import run_Armadillo_experiment_split
 from Code._generate_graph_dict import *
 import time
+import os
 
 def retrain_model(model_out_path: str, train_file: str, test_file: str, valid_file: str, graph_dict: str | dict) -> None:
     """Train a new Armadillo model from scratch
@@ -41,9 +42,11 @@ if __name__ == '__main__':
         Output: a model.pth file containing the weights of new trained model
     """
     root_dataset = ''       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
-    table_dict = ''         # Insert here the full name of the table dictionary, e.g., root/gittables_root/dictionaries/table_dict.pkl
-    graph_dict = ''         # Insert here the full name of the graph dictionary, e.g., root/gittables_root/dictionaries/graph_dict.pkl
-    model_out = ''          # Insert here the full name of the model checkpoint, e.g., root/gittables_root/models/armadillo_git.pth
+    table_dict = root_dataset+'/dictionaries/table_dict.pkl'         # Insert here the full name of the table dictionary, e.g., root/gittables_root/dictionaries/table_dict.pkl
+    graph_dict = root_dataset+'/dictionaries/table_dict.pkl'         # Insert here the full name of the graph dictionary, e.g., root/gittables_root/dictionaries/graph_dict.pkl
+    if not os.path.exists(root_dataset+'/models/'):
+        os.makedirs(root_dataset+'/models/')
+    model_out = root_dataset+'/models/armadillo.pth'          # Insert here the full name of the model checkpoint, e.g., root/gittables_root/models/armadillo_git.pth
     print('Building graph_dict')
     try:
         with open(graph_dict,'rb') as f:

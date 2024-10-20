@@ -2,7 +2,7 @@ import sys
 sys.path.append(".")
 sys.path.append("../../")
 from Code._csv_preprocessing import *
-from prepare_data import *
+from Code.old_evaluation.prepare_data import *
 
 def build_table_dict_from_multiple_directories(directories: list[str], outpath: str, table_set: set[str]) -> dict[str:pd.DataFrame]:
     out = {}

@@ -55,6 +55,10 @@ if __name__ == '__main__':
     root = ''
     root_git = root+'/GitTables/'
     root_wiki = root+'/WikiTables/'
+    if not os.path.exists(root_git+'/dictionaries/embedding_dictionaries/'):
+        os.makedirs(root_git+'/dictionaries/')
+    if not os.path.exists(root_wiki+'/dictionaries/embedding_dictionaries/'):
+        os.makedirs(root_wiki+'/dictionaries/')
     #_____________________________ROWS GRANULARITY
     params_bert_rows_300_300_gittables={
         'table_dictionary' : root_git+'/dictionaries/table_dictionaries/table_dict.pkl',
@@ -162,7 +166,7 @@ if __name__ == '__main__':
     generate_embedding_dictionary(**params_roberta_tables_anon_300_300_wikilast, gpu_num='0')
     generate_embedding_dictionary(**params_bert_tables_anon_300_300_wikilast, gpu_num='0')
 
-    __________________GITTABLES____________________________
+    # __________________GITTABLES____________________________
     generate_embedding_dictionary(**params_bert_tables_300_300_gittables, gpu_num='0')
     generate_embedding_dictionary(**params_roberta_tables_300_300_gittables, gpu_num='0')
 
