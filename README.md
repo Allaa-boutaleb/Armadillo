@@ -19,7 +19,7 @@ In addition to them, taking care of not including tables that appear inside the 
 The triple datasets and the processed tables that we extracted from GitTables and Wikipedia in .csv format, are available [here](). (Note that due to anonymity requirements, all of the links are disabled and will be added after acceptance of the paper. In this repository, we provide in the `Dataset` folders the .csv files containing the triple datasets, but due to the size of the archive containing the actual tables we were unable to upload them)
 
 ## Model weights
-This repository contains the weights of the two versions of Armadillo used to produce the results in the paper and the weights of all of the scaling heads of the baselines. All of them are trained on the GitTables_triple_dataset and the WikiLast_triple_dataset and are stored in the directory called `Models`.
+This repository contains the weights of the two versions of Armadillo used to produce the results in the paper and the weights of all of the scaling heads of the baselines. All of them are trained on the GitTables_triple_dataset and the WikiTables_triple_dataset and are stored in the directory called `Models`.
 
 ## Running the experiments
 Before running the experiments perform the following preliminary operations:
@@ -31,7 +31,7 @@ Before running the experiments perform the following preliminary operations:
 
 We provide eight scripts and one notebook to replicate our experiments:
 * `1_data_preparation.py`: generates the preliminary artifacts necessary for running the experiments. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
-* `2_run_training_armadillo.py`: retrain a new Armadillo model from scratch using the triple datasets. Note that the training is heavily demanding in terms of resources, in particular, it is suggested to have at least 50 GB of RAM and free disk space when using the WikiLast_triple_dataset and 200 GB of RAM and free disk space when using the GitTables_triples_dataset. Before running the script open the file and assign to the `root_dataset` variable the path to the directory containing the triple datasets for train, test, and validation to use. 
+* `2_run_training_armadillo.py`: retrain a new Armadillo model from scratch using the triple datasets. Note that the training is heavily demanding in terms of resources, in particular, it is suggested to have at least 50 GB of RAM and free disk space when using the WikiTables_triple_dataset and 200 GB of RAM and free disk space when using the GitTables_triples_dataset. Before running the script open the file and assign to the `root_dataset` variable the path to the directory containing the triple datasets for train, test, and validation to use. 
 * `3_generate_embeddings_baselines.py`: for each baseline embedding model generate table embeddings of the tables in GitTables and WikiTables. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `4_train_scaling_heads_baselines.py`: for each baseline embedding model, train a scaling head to scale the embeddings generated using the third script into the correct format. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `5_evaluate_scaling_models.py`: for each baseline embedding model, run the evaluation. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
