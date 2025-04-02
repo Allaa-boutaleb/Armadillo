@@ -16,7 +16,7 @@ Note that there are no repetitions of tables in the train-test-validation split,
 
 In addition to them, taking care of not including tables that appear inside the training and validation triples, we extracted at random from GitTables two sets of tables containing 100 and 10 000 tables each and built a third triple dataset that emulates a table querying scenario, where each of the 100 query tables is compared to the 10 000 tables of the other set, containing a total of 1 000 000 pairs.
 
-The triple datasets and the processed tables that we extracted from GitTables and Wikipedia in .csv format, are available [here](). (Note that due to anonymity requirements, all of the links are disabled and will be added after acceptance of the paper. In this repository, we provide in the `Dataset` folders the .csv files containing the triple datasets, but due to the size of the archive containing the actual tables we were unable to upload them)
+The triple datasets and the processed tables that we extracted from GitTables and Wikipedia in .csv format, are available [here](https://my.hidrive.com/share/6tuees3os3). (Note that due to anonymity requirements, all of the links are disabled and will be added after acceptance of the paper. In this repository, we provide in the `Dataset` folders the .csv files containing the triple datasets, but due to the size of the archive containing the actual tables we were unable to upload them)
 
 ## Model weights
 This repository contains the weights of the two versions of Armadillo used to produce the results in the paper and the weights of all of the scaling heads of the baselines. All of them are trained on the GitTables_triple_dataset and the WikiTables_triple_dataset and are stored in the directory called `Models`.
