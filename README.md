@@ -4,7 +4,7 @@ This repository contains the artifacts that regard Armadillo, an approach based 
 To reproduce the results of the paper, please follow the instructions in the following sections.
 
 ## Datasets
-We propose two triple datasets composed of pairs of tables and their overlap ratio. The tables are extracted from two sources, namely [GitTables](), a collection of tables extracted from GitHub repositories, and WikiTables, i.e., the web tables existent in Wikipedia at the time of its last snapshot considered in the [IANVS]() project. 
+We propose two triple datasets composed of pairs of tables and their overlap ratio. The tables are extracted from two sources, namely [GitTables](), a collection of tables extracted from GitHub repositories, and WikiTables, i.e., the web tables existent in Wikipedia at the time of its last snapshot considered in the [IANVS](https://hpi.de/naumann/projects/data-profiling-and-analytics/change-exploration.html) project. 
 
 The triple datasets comprise a total of 1.32 million samples and their triples are divided into training, testing, and validation data as follows:
 | Dataset                  | Training triples | Testing triples  | Validation triples | 
