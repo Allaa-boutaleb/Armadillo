@@ -45,17 +45,17 @@ if __name__ == '__main__':
         Input: root of wikilast or gittables
         Output: a model.pth file containing the weights of new trained model
     """
-    root_ablation = '' # WikiTables
-    # root_ablation = '' # GitTables
+    root_ablation = '/home/francesco.pugnaloni/armadillo_all/result_stability/swapped_col_cell/wikitables/' # WikiTables
+    # root_ablation = '/home/francesco.pugnaloni/armadillo_all/result_stability/swapped_col_cell/gittables/' # GitTables
 
-    root_dataset = ''       # WikiTables
-    # root_dataset = '' #GitTables
+    root_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'       # WikiTables
+    # root_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/' #GitTables
 
-    table_dict = ''         
-    # table_dict = '' #GitTables
+    table_dict = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl'         
+    # table_dict = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables//dictionaries/table_dictionaries/table_dict.pkl' #GitTables
 
-    graph_dict = ''         # WikiTables
-    # graph_dict = '' #GitTables
+    graph_dict = '/home/francesco.pugnaloni/armadillo_all/result_stability/swapped/wikitables/graph_dict.pkl'         # WikiTables
+    # graph_dict = '/home/francesco.pugnaloni/armadillo_all/result_stability/swapped/gittables/graph_dict.pkl' #GitTables
 
     if not os.path.exists(root_ablation+'/models/'):
         os.makedirs(root_ablation+'/models/')

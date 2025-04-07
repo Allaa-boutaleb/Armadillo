@@ -1,7 +1,7 @@
 import sys
 sys.path.append(".")
 sys.path.append("../../")
-from .TURL_get_embeddings import *
+from TURL_get_embeddings import *
 import csv
 import clevercsv
 import pandas as pd

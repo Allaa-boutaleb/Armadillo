@@ -184,7 +184,7 @@ class Graph:
             attribute_preprocess_operations: list=['lowercase', 'drop_numbers_from_strings'], 
             string_preprocess_operations: list=['lowercase', 'split', 'remove_stop_words'],
             number_preprocess_operations: list=['cast_to_float'], drop_na: bool=False, verbose: bool=False, 
-            merge_nodes_same_value: bool=True) -> None:
+            merge_nodes_same_value: bool=False) -> None:
         if embedding_buffer_type == 'sha256':
             self.init_sha256(df=df, table_name=table_name,embedding_buffer=embedding_buffer, link_tuple_token=link_tuple_token, merge_nodes_same_value=merge_nodes_same_value,
                              link_token_attribute=link_token_attribute, link_tuple_attribute=link_tuple_attribute, drop_na=drop_na, verbose=verbose)

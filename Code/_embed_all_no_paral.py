@@ -148,15 +148,15 @@ def run_experiment(model_file: str, table_dict_path: str | dict=None, graphs_pat
     if experiment_data_file_path:
         with open(experiment_data_file_path, 'wb') as f:
             pickle.dump(experiment_data,f)
+    return embeddings
 
 def sub_dict(td, df):
     tables = set(df['r_id']).union(set(df['s_id']))
     out = {k:td[k] for k in tables}
     return out
 if __name__ == '__main__':
-    root = ''
-    root_git = root+'/GitTables/'
-    root_wiki = root+'/WikiTables/'
+    root_git = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/'
+    root_wiki = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'
     
     # print('Loading table dictionary git')
     # with open(root_git+'/dictionaries/table_dictionaries/table_dict.pkl','rb') as f:
@@ -201,16 +201,16 @@ if __name__ == '__main__':
     #     'embedding_file': root_git+'/dictionaries/embedding_dictionaries/embedding_dict_test_set_armadillo_w_g.pkl'
     # }
 
-    with open(root+'/GitTables/table_querying/dictionaries/table_dict_table_querying.pkl', 'rb') as f:
+    with open('/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/table_querying/dictionaries/table_dict_table_querying.pkl', 'rb') as f:
         td_querying = pickle.load(f)
     
     armadillo_querying = {
-        'model_file': root+'/GitTables/models/armadillo_git.pth', 
+        'model_file': '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/armadillo_git.pth', 
         'table_dict_path': td_querying, 
         'graphs_path': None, 
-        'experiment_data_file_path': root+'/GitTables/table_querying/dictionaries/embedding_dictionaries/t_execs_armadillo_querying.pkl', 
+        'experiment_data_file_path': '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/table_querying/dictionaries/embedding_dictionaries/t_execs_armadillo_querying.pkl', 
         'iters': 1, 
-        'embedding_file': root+'/GitTables/table_querying/dictionaries/embedding_dictionaries/embedding_armadillo_querying.pkl'
+        'embedding_file': '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/table_querying/dictionaries/embedding_dictionaries/embedding_armadillo_querying.pkl'
     }
 
     run_experiment(**armadillo_querying)

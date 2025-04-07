@@ -78,8 +78,8 @@ def compute_mae(embeddings_dict: str|dict, test_dataset: str|pd.DataFrame) -> fl
     return mae
 
 if __name__ == '__main__':
-    root_ablation = ''
-    root_dataset = ''
+    root_ablation = '/home/francesco.pugnaloni/armadillo_all/ablation_study/bert_emb/'
+    root_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'
     table_dict = root_dataset+'/dictionaries/table_dict.pkl'
     test_dataset = root_dataset+'/test.csv'
     model_path = root_ablation+'/models/armadillo.pth'

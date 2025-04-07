@@ -82,29 +82,26 @@ def re_avaluate_values(table_dict: str | dict, triple_dataset: str | pd.DataFram
     return triple_dataset.iloc[wrong_labels,:]
 
 if __name__ == '__main__':
-    root = ''
-    root_git = root+'/GitTables/'
-    root_wiki = root+'/WikiTables/'
     # print('Starting git')
-    # re_avaluate_values(table_dict=root+'/gittables/dictionaries/table_dictionaries/table_dict.pkl',
-    #                    triple_dataset=root+'/gittables/test.csv',
-    #                 #    triple_dataset=root+'/gittables/tmp/wrong_labels_test.csv',
+    # re_avaluate_values(table_dict='/home/francesco.pugnaloni/armadillo_all/datasets/gittables/dictionaries/table_dictionaries/table_dict.pkl',
+    #                    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/gittables/test.csv',
+    #                 #    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/gittables/tmp/wrong_labels_test.csv',
     #                 #    out_path=None
-    #                    out_path=root+'/gittables/tmp/wrong_labels_test.csv'
+    #                    out_path='/home/francesco.pugnaloni/armadillo_all/datasets/gittables/tmp/wrong_labels_test.csv'
     #                    )
 
     # print('Starting wiki')
-    # re_avaluate_values(table_dict=root+'/wikilast/dictionaries/table_dictionaries/table_dict.pkl',
-    #                    triple_dataset=root+'/wikilast/test.csv',
-    #                 #    triple_dataset=root+'/wikilast/tmp/wrong_labels_test.csv',
+    # re_avaluate_values(table_dict='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/dictionaries/table_dictionaries/table_dict.pkl',
+    #                    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/test.csv',
+    #                 #    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/tmp/wrong_labels_test.csv',
     #                 #    out_path=None
-    #                    out_path=root+'/wikilast/tmp/wrong_labels_test.csv'
+    #                    out_path='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/tmp/wrong_labels_test.csv'
     #                    )
 
-    # with open(root+'/wikilast/dictionaries/table_dictionaries/table_dict.pkl', 'rb') as f:
+    # with open('/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/dictionaries/table_dictionaries/table_dict.pkl', 'rb') as f:
     #     table_dict = pickle.load(f)
-    # t1 = pd.read_csv(root+'/wikilast/csv/123.66036.csv')
-    # t2 = pd.read_csv(root+'/wikilast/csv/123.66050.csv')
+    # t1 = pd.read_csv('/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/csv/123.66036.csv')
+    # t2 = pd.read_csv('/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/csv/123.66050.csv')
     # ov, ov_a = compute_overlap(t1=t1,t2=t2, verbose=True)
     # print(f'a%={ov}, ov_area={ov_a}')
 
@@ -116,11 +113,11 @@ if __name__ == '__main__':
 
     print('Starting wiki')
 
-    re_avaluate_values(table_dict=root+'/WikiTables/dictionaries/table_dict.pkl',
-        #table_dict=root+'/wikilast/dictionaries/table_dictionaries/table_dict.pkl',
-                       triple_dataset=root+'/old/wikilast/test.csv',
-                    #    triple_dataset=root+'/old/wikilast/tmp/wrong_labels_test.csv',
-                    #    triple_dataset=root+'/old/wikilast/tmp/wrong_labels_test_reduced_loading_cast_str.csv',
-                       out_path=root+'/tmp/wrong_labels.csv'
-                    #    out_path=root+'/wikilast/tmp/wrong_labels_test_reduced_loading_cast_str.csv'
+    re_avaluate_values(table_dict='/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        #table_dict='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/dictionaries/table_dictionaries/table_dict.pkl',
+                       triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/old/wikilast/test.csv',
+                    #    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/old/wikilast/tmp/wrong_labels_test.csv',
+                    #    triple_dataset='/home/francesco.pugnaloni/armadillo_all/datasets/old/wikilast/tmp/wrong_labels_test_reduced_loading_cast_str.csv',
+                       out_path='/home/francesco.pugnaloni/armadillo_all/datasets/tmp/wrong_labels.csv'
+                    #    out_path='/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/tmp/wrong_labels_test_reduced_loading_cast_str.csv'
                        )

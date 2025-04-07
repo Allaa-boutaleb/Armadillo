@@ -22,10 +22,7 @@ def get_missing_tables(query_pairs: str|pd.DataFrame, table_dict: str | dict):
     return missing_tables, set(none_embs)
 
 if __name__ == '__main__':
-    root = ''
-    root_git = root+'/GitTables/'
-    root_wiki = root+'/WikiTables/'
-    query_dataset = root+'/GitTables/table_querying/table_querying_stats.csv'
-    embedding_dataset = root+'/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_turl_tables_128_128.pkl'
+    query_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/table_querying/table_querying_stats.csv'
+    embedding_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_turl_tables_128_128.pkl'
     missing, none_embds = get_missing_tables(query_dataset,embedding_dataset)
     pass

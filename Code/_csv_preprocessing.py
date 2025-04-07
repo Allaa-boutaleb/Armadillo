@@ -84,9 +84,10 @@ def generate_table_dict(collection_directory: str, outpath: str=None, anon:bool=
             pickle.dump(out_dict, f)
     return out_dict
     
-def generate_table_dict_from_different_folders(folders: list, outpath: str, anon:bool=False) -> dict:
+def generate_table_dict_from_different_folders(folders: list, outpath: str=None, anon:bool=False) -> dict:
     table_dict = {}
     for d in folders:
         table_dict.update(generate_table_dict(d, anon=anon))
-    with open(outpath, 'wb') as f:
-        pickle.dump(table_dict, f)
+    if isinstance(outpath, str):
+        with open(outpath, 'wb') as f:
+            pickle.dump(table_dict, f)

@@ -36,19 +36,15 @@ def only_MAE(model_name: str, model_checkpoint: str, embedding_path: str|dict, t
     print(f'Completed in {end-start} seconds')
     return {model_name: {'mae':out[0]['test_loss'], 'inference_time':(end-start)}}
 
-root = ''
-root_git = root+'/GitTables/'
-root_wiki = root+'/WikiTables/'
-
-models_git= root_git+'/models/'
+root_git = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/'
+models_git= '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/'
 embeddings_git = root_git+'dictionaries/embedding_dictionaries/'
 test_git = root_git+'test.csv'
 
-models_wiki = root_wiki+'/models/'
+root_wiki = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'
+models_wiki = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/models/'
 embeddings_wiki = root_wiki+'dictionaries/embedding_dictionaries/'
 test_wiki = root_wiki+'test.csv'
-
-results_path = ''
 
 if __name__ == '__main__':
     #EMBDI
@@ -195,32 +191,126 @@ if __name__ == '__main__':
         'test_dataset_path':test_wiki
     }
 
+    # _____________________________REVISION EXPERIMENTS____________________________________
+    turl_t_g_on_wiki = {
+        'model_name':'turl_t_g_on_wiki',
+        'model_checkpoint':models_git+'/turl_tables_300_300_gittables.pth',
+        'embedding_path':embeddings_wiki+'/emb_dict_turl_tables_300_300.pkl',
+        'test_dataset_path':test_wiki
+    }
+    turl_t_w_on_git = {
+        'model_name':'turl_t_w_on_git',
+        'model_checkpoint':models_wiki+'/turl_tables_300_300_wikilast.pth',
+        'embedding_path':embeddings_git+'/emb_dict_turl_tables_128_128.pkl',
+        'test_dataset_path':test_git
+    }
+    bert_r_g_on_wiki = {
+        'model_name':'bert_r_g_on_wiki',
+        'model_checkpoint':models_git+'/bert_rows_300_300_gittables.pth',
+        'embedding_path':embeddings_wiki+'/emb_dict_bert_lines_300_300.pkl',
+        'test_dataset_path':test_wiki
+    }
+    bert_r_w_on_git = {
+        'model_name':'bert_r_w_on_git',
+        'model_checkpoint':models_wiki+'/bert_rows_300_300_wikilast.pth',
+        'embedding_path':embeddings_git+'/emb_dict_bert_lines_300_300.pkl',
+        'test_dataset_path':test_git
+    }
+    roberta_r_g_on_wiki = {
+        'model_name':'roberta_r_g_on_wiki',
+        'model_checkpoint':models_git+'/roberta_rows_300_300_gittables.pth', 
+        'embedding_path':embeddings_wiki+'emb_dict_roberta_lines_300_300.pkl',
+        'test_dataset_path':test_wiki
+    }
+    roberta_r_w_on_git = {
+        'model_name':'roberta_r_w_on_git',
+        'model_checkpoint':models_wiki+'/roberta_rows_300_300_wikilast.pth',
+        'embedding_path':embeddings_git+'/emb_dict_roberta_lines_300_300.pkl',
+        'test_dataset_path':test_git
+    }
+    # tests = [
+        # turl_t_g_on_wiki,
+        # turl_t_w_on_git,
+        # bert_r_g_on_wiki,
+        # bert_r_w_on_git,
+        # roberta_r_g_on_wiki,
+        # roberta_r_w_on_git,
+        # embdi_on_wiki,
+        # turl_t_g_on_git
+        # turl_t_w_on_wiki,
+        # bert_r_g_on_git,
+        # bert_r_w_on_wiki,
+        # bert_t_g_on_git,
+        # bert_t_g_on_wiki,
+        # bert_t_w_on_wiki,
+        # bert_t_w_on_git,
+        # bert_t_n_w_on_wiki,
+        # roberta_r_g_on_git,
+        # roberta_r_w_on_wiki,
+        # roberta_t_g_on_git,
+        # roberta_t_g_on_wiki,
+        # roberta_t_w_on_wiki,
+        # roberta_t_w_on_git,
+        # roberta_t_n_w_on_wiki
+    # ]
+    bert_t_n_g_on_git = {
+        'model_name':'bert_t_n_g_on_git',
+        'model_checkpoint':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/bert_tables_anon_300_300_gittables.pth',
+        'embedding_path':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_bert_tables_anon_300_300.pkl',
+        'test_dataset_path':test_git
+    }
+    bert_t_n_g_on_wiki = {
+        'model_name':'bert_t_n_g_on_wiki',
+        'model_checkpoint':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/bert_tables_anon_300_300_gittables.pth',
+        'embedding_path':embeddings_wiki+'/emb_dict_bert_tables_anon_300_300.pkl',
+        'test_dataset_path':test_wiki
+    }
+    bert_t_n_w_on_git = {
+        'model_name':'bert_t_n_w_on_git',
+        'model_checkpoint':models_wiki+'/bert_tables_anon_300_300.pth',
+        'embedding_path':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_bert_tables_anon_300_300.pkl',
+        'test_dataset_path':test_git
+    }
 
+    roberta_t_n_g_on_git = {
+        'model_name':'roberta_t_n_g_on_git',
+        'model_checkpoint':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/roberta_tables_anon_300_300_gittables.pth',
+        'embedding_path':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_roberta_tables_anon_300_300.pkl',
+        'test_dataset_path':test_git
+    }
+    roberta_t_n_g_on_wiki = {
+        'model_name':'roberta_t_n_g_on_wiki',
+        'model_checkpoint':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/roberta_tables_anon_300_300_gittables.pth',
+        'embedding_path':embeddings_wiki+'/emb_dict_roberta_tables_anon_300_300.pkl',
+        'test_dataset_path':test_wiki
+    }
+    roberta_t_n_w_on_git = {
+        'model_name':'roberta_t_n_w_on_git',
+        'model_checkpoint':models_wiki+'/roberta_tables_anon_300_300.pth',
+        'embedding_path':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_roberta_tables_anon_300_300.pkl',
+        'test_dataset_path':test_git
+    }
 
     tests = [
-        embdi_on_wiki,
-        turl_t_g_on_git,
-        turl_t_w_on_wiki,
-        bert_r_g_on_git,
-        bert_r_w_on_wiki,
-        bert_t_g_on_git,
-        bert_t_g_on_wiki,
-        bert_t_w_on_wiki,
-        bert_t_w_on_git,
-        bert_t_n_w_on_wiki,
-        roberta_r_g_on_git,
-        roberta_r_w_on_wiki,
-        roberta_t_g_on_git,
-        roberta_t_g_on_wiki,
-        roberta_t_w_on_wiki,
-        roberta_t_w_on_git,
-        roberta_t_n_w_on_wiki
+        bert_t_n_g_on_git,
+        bert_t_n_g_on_wiki,
+        bert_t_n_w_on_git
+        # roberta_t_n_g_on_git,
+        # roberta_t_n_g_on_wiki,
+        # roberta_t_n_w_on_git
     ]
+
     results = {}
     for t in tests:
         print(f'Starting {t["model_name"]}')
         results.update(only_MAE(**t))
     print(results)
 
-    with open(results_path,'wb') as f:
+    with open('/home/francesco.pugnaloni/armadillo_all/times_baselines_noised_inference_revision_bert.pkl','wb') as f:
         pickle.dump(results,f)
+
+    # with open('/home/francesco.pugnaloni/armadillo_all/times_baselines_inference_revision.pkl','wb') as f:
+    #     pickle.dump(results,f)
+
+    # with open('/home/francesco.pugnaloni/armadillo_all/times_baselines_inference_turl.pkl','wb') as f:
+    #     pickle.dump(results,f)

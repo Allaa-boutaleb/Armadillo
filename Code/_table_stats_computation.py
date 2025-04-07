@@ -64,14 +64,13 @@ def compute_tables_stats(table_dict: dict | str, outpath: str) -> None:
     out.to_csv(outpath, index=False)
 
 if __name__ == '__main__':
-    root = ''
     params_wiki = {
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'outpath':root+'/WikiTables/table_stats/stats.csv'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'outpath':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/table_stats/stats.csv'
     }
     params_git = {
-        'table_dict':root+'/GitTables/dictionaries/table_dictionaries/table_dict.pkl',
-        'outpath':root+'/GitTables/table_stats/stats.csv'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/table_dictionaries/table_dict.pkl',
+        'outpath':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/table_stats/stats.csv'
     }
     compute_tables_stats(**params_wiki)
     compute_tables_stats(**params_git)

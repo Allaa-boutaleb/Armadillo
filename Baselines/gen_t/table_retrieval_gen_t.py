@@ -183,7 +183,7 @@ def retrieve_generating_tables(query_tables_path: str|dict, query_table_name: st
                                 table_dict_raw=data_lake_dict_raw, candidate_tables_dict=candidateTablesFound)
     if generating_tables is not None:
         originating_tables_dict = {k:candidateTablesFound[k] for k in generating_tables}
-        timed_out, noCandidates, numOutputVals, reclaimed_table = table_integration_main(datalake_raw_dict=data_lake_dict_raw, query_tables_path=query_tables_path, originatingTablesDict=originating_tables_dict, sourceTableName=query_table_name, timeout=100, outputPath=None)
+        timed_out, noCandidates, numOutputVals, reclaimed_table = table_integration_main(datalake_raw_dict=data_lake_dict_raw, query_tables_path=query_tables_path, originatingTablesDict=originating_tables_dict, sourceTableName=query_table_name, timeout=100, outputPath='/home/francesco.pugnaloni/tmp/')
     else:
         originating_tables_dict = {}
         reclaimed_table = pd.DataFrame({k:{} for k in pd.read_csv(query_tables_path+'/'+query_table_name).columns})
@@ -215,7 +215,7 @@ def reclaim_multiple_tables(root_dataset: str, use_armadillo_blocking: bool=True
         try:
             armadillo_overlaps = pd.read_csv(armadillo_overlaps_path)
         except:
-            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path, None, out_path=armadillo_overlaps_path,
+            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path, '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/armadillo_git.pth', out_path=armadillo_overlaps_path,
                                                      out_t_execs=out_t_execs_armadillo)
     reclamation_performance = {'query_table':[], 'precision':[], 'recall':[]}
     start = time.time()
@@ -285,10 +285,10 @@ def retrieve_multiple_generating_tables(root_dataset_armadillo: str, root_datase
         armadillo_overlaps = pd.read_csv(armadillo_overlaps_path)
     except:
         if use_armadillo_wiki:
-            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path_armadillo, None, out_path=armadillo_overlaps_path,
+            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path_armadillo, '/home/francesco.pugnaloni/armadillo_all/ablation_study/base/models/armadillo.pth', out_path=armadillo_overlaps_path,
                                                         out_t_execs=out_t_execs_armadillo)
         else:
-            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path_armadillo, None, out_path=armadillo_overlaps_path,
+            armadillo_overlaps = embed_all_armadillo(data_lake_dict_raw, query_tables_path_armadillo, '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/armadillo_git.pth', out_path=armadillo_overlaps_path,
                                                         out_t_execs=out_t_execs_armadillo)
         if embeddings_only:
             return
@@ -368,11 +368,9 @@ def retrieve_multiple_generating_tables(root_dataset_armadillo: str, root_datase
 
 
 if __name__ == '__main__':
-    root_dataset_name = ''
-    root_dataset_gen_t = ''
     params_wiki_tptr_small = {
-        'root_dataset_armadillo':root_dataset_name,
-        'root_dataset_gen_t':root_dataset_gen_t,
+        'root_dataset_armadillo':'/home/francesco.pugnaloni/armadillo_all/gen-t/wiki_tptr_small/',
+        'root_dataset_gen_t':'/home/francesco.pugnaloni/armadillo_all/gen-t/tptr_small/tptr_small/',
         'armadillo_threshold':0.01,
         'gen_t_threshold':0.5,
         'embeddings_only':False,

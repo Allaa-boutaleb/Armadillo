@@ -45,8 +45,8 @@ if __name__ == '__main__':
         Input: root of wikilast or gittables
         Output: a model.pth file containing the weights of new trained model
     """
-    root_ablation = ''
-    root_dataset = ''       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
+    root_ablation = '/home/francesco.pugnaloni/armadillo_all/ablation_study/base' #'/home/francesco.pugnaloni/armadillo_all/ablation_study/random_emb/' 
+    root_dataset = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'       # Insert here the full name of the directory containing the train, test, and valid csv files, e.g., root/gittables_root
     table_dict = root_dataset+'/dictionaries/table_dict.pkl'         # Insert here the full name of the table dictionary, e.g., root/gittables_root/dictionaries/table_dict.pkl
     graph_dict = root_ablation+'/graph_dict.pkl'         # Insert here the full name of the graph dictionary, e.g., root/gittables_root/dictionaries/graph_dict.pkl
     if not os.path.exists(root_ablation+'/models/'):

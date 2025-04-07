@@ -6,8 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import pickle
 import time
-baselines_path = ''
-SCENARIO=baselines_path+'/embdi/config-dblp_acm-sm'
+SCENARIO='/home/francesco.pugnaloni/armadillo_all/Armadillo_local/Baselines/embdi/config-dblp_acm-sm'
 
 def embed_triple_file(triple_file: pd.DataFrame|str, table_dict: dict|str,cache_directory_mount: str) -> set:
     if isinstance(triple_file, str):
@@ -58,140 +57,136 @@ def embed_triple_files_list(triple_files_list: list, table_dict: dict|str, out_p
     return out, t_execs
 
 if __name__ == '__main__':
-    root = ''
-    root_git = root+'/GitTables/'
-    root_wiki = root+'/WikiTables/'
-    cache_directory_path = ''
-    blocks = [(0,50_000),(50_000,100_000),(100_000,150_000),(150_000,200_000),(200_000,250_000),(250_000,300_000),(300_000,350_000),(350_000,400_000),(400_000,450_000),(450_000,500_000)]
-    train = pd.read_csv(root+'/WikiTables/train.csv')
 
+    blocks = [(0,50_000),(50_000,100_000),(100_000,150_000),(150_000,200_000),(200_000,250_000),(250_000,300_000),(300_000,350_000),(350_000,400_000),(400_000,450_000),(450_000,500_000)]
+    train = pd.read_csv('/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/train.csv')
     # __test__ = train.iloc[0:9]
     # name = '_mockup'
     # params_mockup = {
     #     'triple_files_list':[__test__],
-    #     'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-    #     'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-    #     'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-    #     'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+    #     'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+    #     'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+    #     'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+    #     'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     # }
     t_0 = train.iloc[blocks[0][0]:blocks[0][1]]
     name = '_train_0'
     params_t_0 = {
         'triple_files_list':[t_0],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_1 = train.iloc[blocks[1][0]:blocks[1][1]]
     name = '_train_1'
     params_t_1 = {
         'triple_files_list':[t_1],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_2 = train.iloc[blocks[2][0]:blocks[2][1]]
     name = '_train_2'
     params_t_2 = {
         'triple_files_list':[t_2],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_3 = train.iloc[blocks[3][0]:blocks[3][1]]
     name = '_train_3'
     params_t_3 = {
         'triple_files_list':[t_3],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_4 = train.iloc[blocks[4][0]:blocks[4][1]]
     name = '_train_4'
     params_t_4 = {
         'triple_files_list':[t_4],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_5 = train.iloc[blocks[5][0]:blocks[5][1]]
     name = '_train_5'
     params_t_5 = {
         'triple_files_list':[t_5],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_6 = train.iloc[blocks[6][0]:blocks[6][1]]
     name = '_train_6'
     params_t_6 = {
         'triple_files_list':[t_6],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_7 = train.iloc[blocks[7][0]:blocks[7][1]]
     name = '_train_7'
     params_t_7 = {
         'triple_files_list':[t_7],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_8 = train.iloc[blocks[8][0]:blocks[8][1]]
     name = '_train_8'
     params_t_8 = {
         'triple_files_list':[t_8],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     t_9 = train.iloc[blocks[9][0]:blocks[9][1]]
     name = '_train_9'
     params_t_9 = {
         'triple_files_list':[t_9],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
     
-    test = pd.read_csv(root+'/WikiTables/test.csv')
+    test = pd.read_csv('/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/test.csv')
     name = '_test'
     params_test = {
         'triple_files_list':[test],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
-    valid = pd.read_csv(root+'/WikiTables/valid.csv')
+    valid = pd.read_csv('/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/valid.csv')
     name = '_valid'
     params_valid = {
         'triple_files_list':[valid],
-        'table_dict':root+'/WikiTables/dictionaries/table_dict.pkl',
-        'cache_directory_mount':cache_directory_path+'/cache'+name+'/',
-        'out_path_embedding_dict':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
-        'out_path_t_exec':root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
+        'table_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/table_dict.pkl',
+        'cache_directory_mount':'/home/francesco.pugnaloni/armadillo_all/tmp/embdi_caches/cache'+name+'/',
+        'out_path_embedding_dict':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/embedding_dict'+name+'.pkl',
+        'out_path_t_exec':'/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/t_execs'+name+'.pkl'
     }
 
     # embed_triple_files_list(**params_t_0)

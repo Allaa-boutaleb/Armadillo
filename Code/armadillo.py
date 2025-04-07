@@ -86,7 +86,7 @@ class Armadillo(nn.Module):
                 nn.init.xavier_uniform_(p)
 
     def __init__(self, hidden_channels: int=300, num_layers: int=3, dropout: float=0, act: str="relu", 
-                 gnn_type: str='GraphSAGE', initial_embedding_method: str='fasttext', model_file: str=None, relu: bool=False) -> None:
+                 gnn_type: str='GraphSAGE', initial_embedding_method: str='sha256', model_file: str=None, relu: bool=False) -> None:
         """The init function
 
         Args:

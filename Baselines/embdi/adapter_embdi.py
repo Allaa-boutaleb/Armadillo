@@ -21,7 +21,7 @@ from embdi.EmbDI.utils import (TIME_FORMAT, read_edgelist)
 from embdi.EmbDI.schema_matching import _produce_match_results , _extract_candidates
 import numpy as np
 
-REPO_DIR = ''   # path to this repository
+REPO_DIR = '/home/francesco.pugnaloni/armadillo_all/Armadillo_local/'
 
 # CACHE_DIRECTORY_MOUNT = REPO_DIR+"Baselines/embdi/embdi/cache"
 
@@ -294,7 +294,4 @@ def generate_table_embeddings(scenario_path, df_1, df_2, cache_directory_mount=N
 if __name__ == "__main__":
     # args = parse_args()
     # print(match(args.input_1, args.input_2))
-    baselines_dir = ''
-    csv_table_path_r = ''
-    csv_table_path_s = ''
-    generate_table_embeddings(baselines_dir+'/embdi/config-dblp_acm-sm', csv_table_path_r, csv_table_path_s)
+    generate_table_embeddings('/home/francesco.pugnaloni/armadillo_all/Armadillo_local/Baselines/embdi/config-dblp_acm-sm', '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/test/tables/373.87126.csv', '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/test/tables/462.44160.csv')

@@ -8,11 +8,8 @@ def merge_dicts(ld: list) -> dict:
     return out
 
 if __name__ == '__main__':
-    root = ''
-    root_git = root+'/GitTables/'
-    root_wiki = root+'/WikiTables/'
-    emb_dir = root+'/WikiTables/dictionaries/embedding_dictionaries/embdi/'
-    out_dir = root+'/WikiTables/dictionaries/embedding_dictionaries/'
+    emb_dir = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/embdi/'
+    out_dir = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/dictionaries/embedding_dictionaries/'
     embeddings_dicts = [emb_dir+'embedding_dict_train_0.pkl',emb_dir+'embedding_dict_train_1.pkl',emb_dir+'embedding_dict_train_2.pkl',emb_dir+'embedding_dict_train_3.pkl',
                         emb_dir+'embedding_dict_train_4.pkl',emb_dir+'embedding_dict_train_5.pkl',emb_dir+'embedding_dict_train_6.pkl',emb_dir+'embedding_dict_train_7.pkl',
                         emb_dir+'embedding_dict_train_8.pkl',emb_dir+'embedding_dict_train_9.pkl',

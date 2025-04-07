@@ -55,13 +55,12 @@ def train_scaling_model(train: pd.DataFrame | str, test: pd.DataFrame | str, val
     end = time.time()
     print(f'Total training time: {end-start}s')
     return model
-root = ''
-root_git = root+'/GitTables/'
-root_wiki = root+'/WikiTables/'
 
-checkpoints_git= root_git+'/models/checkpoints/'
+root_git = '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/'
+checkpoints_git= '/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/models/checkpoints/'
 
-checkpoints_wiki = root_wiki+'/models/checkpoints/'
+root_wiki = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/'
+checkpoints_wiki = '/home/francesco.pugnaloni/armadillo_all/datasets/WikiTables/models/checkpoints/'
 
 if __name__ == '__main__':
         #_____________________________ROWS GRANULARITY
@@ -171,7 +170,7 @@ if __name__ == '__main__':
         'train':root_git+'train.csv',
         'test':root_git+'test.csv',
         'valid':root_git+'valid.csv',
-        'embedding_dictionary':root_git+'/dictionaries/embedding_dictionaries/emb_dict_turl_tables_128_128.pkl',
+        'embedding_dictionary':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_turl_tables_128_128.pkl',
         'out_path':root_git+'models/',
         'input_size':312,
         'model_name':'turl_tables_300_300_gittables',
@@ -243,9 +242,36 @@ if __name__ == '__main__':
     # train_scaling_model(**params_bert_tables_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)
     # train_scaling_model(**params_roberta_tables_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)
 
-    train_scaling_model(**params_turl_tables_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)
+    # train_scaling_model(**params_turl_tables_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)
 
     #____________________________________________________________________________________________________________________________________________________________________________________
-    # model = Embedding_scaler.load_from_checkpoint(root_wiki+'/models/bert_rows_300_300_wikilast.pth')
+    # model = Embedding_scaler.load_from_checkpoint("/home/francesco.pugnaloni/armadillo_all/datasets/wikilast/models/bert_rows_300_300_wikilast.pth")
     # trainer =  L.Trainer(**trainer_config, callbacks=[])
     # trainer.test(model=model, dataloaders=build_dataloader(root_wiki+'test.csv', params_bert_rows_300_300_wikilast['embedding_dictionary']))
+
+    #______________________________REVISION____________________________________________________
+    
+    params_bert_tables_anon_300_300_gittables={
+        'train':root_git+'train.csv',
+        'test':root_git+'test.csv',
+        'valid':root_git+'valid.csv',
+        'embedding_dictionary':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_bert_tables_anon_300_300.pkl',
+        'out_path':root_git+'models/',
+        'input_size':768,
+        'model_name':'bert_tables_anon_300_300_gittables',
+        'model_checkpoint_dir':checkpoints_git
+    }
+
+    params_roberta_tables_anon_300_300_gittables={
+        'train':root_git+'train.csv',
+        'test':root_git+'test.csv',
+        'valid':root_git+'valid.csv',
+        'embedding_dictionary':'/home/francesco.pugnaloni/armadillo_all/datasets/GitTables/dictionaries/embedding_dictionaries/emb_dict_roberta_tables_anon_300_300.pkl',
+        'out_path':root_git+'models/',
+        'input_size':768,
+        'model_name':'roberta_tables_anon_300_300_gittables',
+        'model_checkpoint_dir':checkpoints_git
+    }
+
+    # train_scaling_model(**params_roberta_tables_anon_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)
+    train_scaling_model(**params_bert_tables_anon_300_300_gittables, lr=0.01, trainer_config=trainer_config, batch_size=8_192, patience=10)

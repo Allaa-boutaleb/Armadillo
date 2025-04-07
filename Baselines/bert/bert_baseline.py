@@ -81,8 +81,7 @@ class Bert_table_embedder:
             return sentence_embedding
 
 if __name__ == '__main__':
-    table_path = ''
-    
+    table_path = '/home/francesco.pugnaloni/armadillo_all/datasets/gittables/csv/train_csv/abstraction_csv_licensed.zip_00-01_37.csv'
     # table_path = '/data/survey/csv/zeolite4A.csv'
     
     table = pd.read_csv(table_path)
