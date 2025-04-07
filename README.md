@@ -29,7 +29,7 @@ Before running the experiments perform the following preliminary operations:
 * Download [this]() version of TURL and insert the repository into `Baselines/turl`
 * Download [this]() version of EmbDI and insert the repository into `Baselines/embdi`
 
-We provide eight scripts and one notebook to replicate our experiments:
+We provide eight scripts and one notebook that can be adapted to replicate our experiments in the directory `all_experiments_scripts`:
 * `1_data_preparation.py`: generates the preliminary artifacts necessary for running the experiments. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.
 * `2_run_training_armadillo.py`: retrain a new Armadillo model from scratch using the triple datasets. Note that the training is heavily demanding in terms of resources, in particular, it is suggested to have at least 50 GB of RAM and free disk space when using the WikiTables_triple_dataset and 200 GB of RAM and free disk space when using the GitTables_triples_dataset. Before running the script open the file and assign to the `root_dataset` variable the path to the directory containing the triple datasets for train, test, and validation to use. 
 * `3_generate_embeddings_baselines.py`: for each baseline embedding model generate table embeddings of the tables in GitTables and WikiTables. Before running the script open the file and assign to the `root` variable the path to the `triple_datasets` directory.

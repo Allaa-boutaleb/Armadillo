@@ -91,3 +91,4 @@ def generate_table_dict_from_different_folders(folders: list, outpath: str=None,
     if isinstance(outpath, str):
         with open(outpath, 'wb') as f:
             pickle.dump(table_dict, f)
+    return table_dict
