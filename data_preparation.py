@@ -25,5 +25,5 @@ if __name__ == '__main__':
         os.makedirs(root_table_querying+'/dictionaries/')
     generate_table_dict_from_different_folders(
         [root_table_querying+'/tables/'], 
-        outpath=root_table_querying+'/dictionaries/table_dict_noised.pkl', anon=True)
+        outpath=root_table_querying+'/dictionaries/table_dict_querying.pkl', anon=False)
     

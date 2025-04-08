@@ -2,7 +2,7 @@ import sys
 sys.path.append(".")
 sys.path.append("../../")
 from Baselines.bert.bert_baseline import *
-from turl.TURL.turl_table_embedding import TURL_embedding_generator
+from Baselines.turl.turl_table_embedding import TURL_embedding_generator
 import pickle
 import time
 
@@ -181,9 +181,6 @@ if __name__ == '__main__':
 
 
     # ________________________________________________________________________________________________________________________________
-
-
-
 
     model = TURL_embedding_generator(sampling_size=-1, data_dir='Baselines/turl/additional_files/turl_datasets', 
                                          model_checkpoint_path='Baselines/turl/additional_files/turl_pretrained.bin',

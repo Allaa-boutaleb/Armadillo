@@ -90,34 +90,34 @@ def re_evaluate(graphs_path,triple_file,out,model_file):
 if __name__ == '__main__':
     root = ''
     armadillo_w_w = {
-        'graphs_path':root+'/WikiTables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/WikiTables/test.csv',
-        'out':root+'/WikiTables/evaluation/re_eval_armadillo_w_w.pkl',
-        'model_file':root+'/WikiTables/models/armadillo_wiki.pth'
+        'graphs_path':root+'/wikitables/dictionaries/graph_dict.pkl',
+        'triple_file':root+'/wikitables/test.csv',
+        'out':root+'/wikitables/evaluation/re_eval_armadillo_w_w.pkl',
+        'model_file':root+'/trained_models_and_baselines/armadillo_wiki.pth'
     }
     armadillo_g_w = {
-        'graphs_path':root+'/WikiTables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/WikiTables/test.csv',
-        'out':root+'/WikiTables/evaluation/re_eval_armadillo_g_w.pkl',
-        'model_file':root+'/GitTables/models/armadillo_git.pth'
+        'graphs_path':root+'/wikitables/dictionaries/graph_dict.pkl',
+        'triple_file':root+'/wikitables/test.csv',
+        'out':root+'/wikitables/evaluation/re_eval_armadillo_g_w.pkl',
+        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
     }
     armadillo_g_g = {
-        'graphs_path':root+'/GitTables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/GitTables/test.csv',
-        'out':root+'/GitTables/evaluation/re_eval_armadillo_g_g.pkl',
-        'model_file':root+'/GitTables/models/armadillo_git.pth'
+        'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
+        'triple_file':root+'/gittables/test.csv',
+        'out':root+'/gittables/evaluation/re_eval_armadillo_g_g.pkl',
+        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
     }
     armadillo_w_g = {
-        'graphs_path':root+'/GitTables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/GitTables/test.csv',
-        'out':root+'/GitTables/evaluation/re_eval_armadillo_w_g.pkl',
-        'model_file':root+'/WikiTables/models/armadillo_wiki.pth'
+        'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
+        'triple_file':root+'/gittables/test.csv',
+        'out':root+'/gittables/evaluation/re_eval_armadillo_w_g.pkl',
+        'model_file':root+'/trained_models_and_baselines/armadillo_wiki.pth'
     }
     armadillo_g_table_querying = {
-        'graphs_path':root+'/GitTables/table_querying/dictionaries/graph_dict_table_querying.pkl',
-        'triple_file':root+'/GitTables/table_querying/table_querying_stats.csv',
-        'out':root+'/GitTables/table_querying/dictionaries/embedding_dictionaries/re_eval_table_querying_armadillo_g.pkl',
-        'model_file':root+'/GitTables/models/armadillo_git.pth'
+        'graphs_path':root+'/gittables/table_querying/dictionaries/graph_dict_table_querying.pkl',
+        'triple_file':root+'/gittables/table_querying/table_querying_stats.csv',
+        'out':root+'/gittables/table_querying/dictionaries/embedding_dictionaries/re_eval_table_querying_armadillo_g.pkl',
+        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
     }
     print('armadillo_w_w')
     re_evaluate(**armadillo_w_w)
