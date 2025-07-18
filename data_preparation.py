@@ -2,28 +2,68 @@ import os
 from Code._csv_preprocessing import generate_table_dict_from_different_folders
 
 if __name__ == '__main__':
-    root = ''                                       # Path to the directory containing the datasets
-    root_git = root+'/gittables/'                   
-    root_wiki = root+'/wikitables/'
-    root_table_querying = root_git
+    # --- Configuration ---
+    # Set the following flags to True to process the corresponding dataset.
+    PROCESS_GITTABLES = False
+    PROCESS_WIKITABLES = True
+    PROCESS_QUERYING_DATA = False
 
-    print('Building table_dict for GitTables')
-    if not os.path.exists(root_git+'/dictionaries/'):
-        os.makedirs(root_git+'/dictionaries/')
-    generate_table_dict_from_different_folders(
-        [root_git+'/train/',root_git+'/test/',root_git+'/valid/'], 
-        outpath=root_git+'/dictionaries/table_dict.pkl', anon=False)
+    # --- Path Definitions ---
+    # Root directory containing all dataset folders
+    root = 'data'
+    root_git = os.path.join(root, 'gittables')
+    root_wiki = os.path.join(root, 'wikitables')
+    # [cite_start]The querying dataset uses tables from the GitTables corpus [cite: 345]
+    root_table_querying = root_git 
+    
+    # --- Data Processing ---
+    
+    if PROCESS_GITTABLES:
+        print("🚀 Processing GitTables dataset...")
+        output_dir = os.path.join(root_git, 'dictionaries')
+        os.makedirs(output_dir, exist_ok=True)
+        
+        source_folders = [
+            os.path.join(root_git, 'train'),
+            os.path.join(root_git, 'test'),
+            os.path.join(root_git, 'valid')
+        ]
+        
+        generate_table_dict_from_different_folders(
+            folders=source_folders,
+            outpath=os.path.join(output_dir, 'table_dict.pkl'),
+            anon=False
+        )
+        print("✅ GitTables processing complete.")
 
-    print('Building table_dict for WikiTables')
-    if not os.path.exists(root_wiki+'/dictionaries/'):
-        os.makedirs(root_wiki+'/dictionaries/')
-    generate_table_dict_from_different_folders(
-        [root_wiki+'/train/',root_wiki+'/test/',root_wiki+'/valid/'], 
-        outpath=root_wiki+'/dictionaries/table_dict.pkl', anon=False)
-    
-    if not os.path.exists(root_table_querying+'/dictionaries/'):
-        os.makedirs(root_table_querying+'/dictionaries/')
-    generate_table_dict_from_different_folders(
-        [root_table_querying+'/tables/'], 
-        outpath=root_table_querying+'/dictionaries/table_dict_querying.pkl', anon=False)
-    
+    if PROCESS_WIKITABLES:
+        print("\n🚀 Processing WikiTables dataset...")
+        output_dir = os.path.join(root_wiki, 'dictionaries')
+        os.makedirs(output_dir, exist_ok=True)
+
+        source_folders = [
+            os.path.join(root_wiki, 'train'),
+            os.path.join(root_wiki, 'test'),
+            os.path.join(root_wiki, 'valid')
+        ]
+        
+        generate_table_dict_from_different_folders(
+            folders=source_folders,
+            outpath=os.path.join(output_dir, 'table_dict.pkl'),
+            anon=False
+        )
+        print("✅ WikiTables processing complete.")
+
+    if PROCESS_QUERYING_DATA:
+        print("\n🚀 Processing Table Querying dataset...")
+        output_dir = os.path.join(root_table_querying, 'dictionaries')
+        os.makedirs(output_dir, exist_ok=True)
+        
+        source_folders = [os.path.join(root_table_querying, 'tables')]
+        
+        generate_table_dict_from_different_folders(
+            folders=source_folders,
+            outpath=os.path.join(output_dir, 'table_dict_querying.pkl'),
+            anon=False
+        )
+        print("✅ Table Querying processing complete.")

@@ -176,3 +176,5 @@ Baselines/embdi/embdi*
 pdfs*
 Baselines/gen_t/gen-t*
 Baselines/gen_t/gen_t*
+
+data/

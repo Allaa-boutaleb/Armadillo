@@ -38,11 +38,11 @@ def retrain_model(model_out_path: str, train_file: str, test_file: str, valid_fi
     print(f'Model trained in {end-start}s')
 
 if __name__ == '__main__':
-    csvs_path = ''  # path to the 'gittables' or 'wikitables' directories, depending on the desired version of armadillo
-    table_dictionary_path = ''  # path where to save a table dictionary in .pkl format
-    graph_dictionary_path = ''  # path where to save a graph dictionary in .pkl format
-    train_test_valid_triples_path = ''   # path containing train.csv, test.csv, and valid.csv, may be the same as csvs_path
-    model_out_path = ''  # path where to save the newly trained model
+    csvs_path = 'data/wikitables/'  # path to the 'gittables' or 'wikitables' directories, depending on the desired version of armadillo
+    table_dictionary_path = 'data/wikitables/dictionaries/table_dict.pkl'  # path where to save a table dictionary in .pkl format
+    graph_dictionary_path = 'data/wikitables/dictionaries/graph_dict.pkl'  # path where to save a graph dictionary in .pkl format
+    train_test_valid_triples_path = 'data/wikitables/'   # path containing train.csv, test.csv, and valid.csv, may be the same as csvs_path
+    model_out_path = 'data/wikitables/models/model.pt'  # path where to save the newly trained model
 
     if csvs_path != '':
         if not os.path.exists(table_dictionary_path):    

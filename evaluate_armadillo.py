@@ -88,43 +88,45 @@ def re_evaluate(graphs_path,triple_file,out,model_file):
     print(execution_insights_test)
 
 if __name__ == '__main__':
-    root = ''
+    root = 'data'
     armadillo_w_w = {
         'graphs_path':root+'/wikitables/dictionaries/graph_dict.pkl',
         'triple_file':root+'/wikitables/test.csv',
         'out':root+'/wikitables/evaluation/re_eval_armadillo_w_w.pkl',
-        'model_file':root+'/trained_models_and_baselines/armadillo_wiki.pth'
+        # 'model_file':root+'/wikitables/models/model.pt'
+        'model_file':'models/armadillo_wiki.pth'
+
     }
-    armadillo_g_w = {
-        'graphs_path':root+'/wikitables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/wikitables/test.csv',
-        'out':root+'/wikitables/evaluation/re_eval_armadillo_g_w.pkl',
-        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
-    }
-    armadillo_g_g = {
-        'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/gittables/test.csv',
-        'out':root+'/gittables/evaluation/re_eval_armadillo_g_g.pkl',
-        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
-    }
-    armadillo_w_g = {
-        'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
-        'triple_file':root+'/gittables/test.csv',
-        'out':root+'/gittables/evaluation/re_eval_armadillo_w_g.pkl',
-        'model_file':root+'/trained_models_and_baselines/armadillo_wiki.pth'
-    }
-    armadillo_g_table_querying = {
-        'graphs_path':root+'/gittables/table_querying/dictionaries/graph_dict_table_querying.pkl',
-        'triple_file':root+'/gittables/table_querying/table_querying_stats.csv',
-        'out':root+'/gittables/table_querying/dictionaries/embedding_dictionaries/re_eval_table_querying_armadillo_g.pkl',
-        'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
-    }
+    # armadillo_g_w = {
+    #     'graphs_path':root+'/wikitables/dictionaries/graph_dict.pkl',
+    #     'triple_file':root+'/wikitables/test.csv',
+    #     'out':root+'/wikitables/evaluation/re_eval_armadillo_g_w.pkl',
+    #     'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
+    # }
+    # armadillo_g_g = {
+    #     'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
+    #     'triple_file':root+'/gittables/test.csv',
+    #     'out':root+'/gittables/evaluation/re_eval_armadillo_g_g.pkl',
+    #     'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
+    # }
+    # armadillo_w_g = {
+    #     'graphs_path':root+'/gittables/dictionaries/graph_dict.pkl',
+    #     'triple_file':root+'/gittables/test.csv',
+    #     'out':root+'/gittables/evaluation/re_eval_armadillo_w_g.pkl',
+    #     'model_file':root+'/trained_models_and_baselines/armadillo_wiki.pth'
+    # }
+    # armadillo_g_table_querying = {
+    #     'graphs_path':root+'/gittables/table_querying/dictionaries/graph_dict_table_querying.pkl',
+    #     'triple_file':root+'/gittables/table_querying/table_querying_stats.csv',
+    #     'out':root+'/gittables/table_querying/dictionaries/embedding_dictionaries/re_eval_table_querying_armadillo_g.pkl',
+    #     'model_file':root+'/trained_models_and_baselines/armadillo_git.pth'
+    # }
     print('armadillo_w_w')
     re_evaluate(**armadillo_w_w)
-    print('armadillo_g_w')
-    re_evaluate(**armadillo_g_w)
-    print('armadillo_g_g')
-    re_evaluate(**armadillo_g_g)
-    print('armadillo_w_g')
-    re_evaluate(**armadillo_w_g)
-    re_evaluate(**armadillo_g_table_querying)
+    # print('armadillo_g_w')
+    # re_evaluate(**armadillo_g_w)
+    # print('armadillo_g_g')
+    # re_evaluate(**armadillo_g_g)
+    # print('armadillo_w_g')
+    # re_evaluate(**armadillo_w_g)
+    # re_evaluate(**armadillo_g_table_querying)
